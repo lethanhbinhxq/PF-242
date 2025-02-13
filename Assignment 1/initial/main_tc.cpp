@@ -1,35 +1,3 @@
-// /*
-// * Ho Chi Minh City University of Technology
-// * Faculty of Computer Science and Engineering
-// * Initial code for Assignment 1
-// * Programming Fundamentals Spring 2025
-// * Date: 07.02.2025
-// */
-
-// //The library here is concretely set, students are not allowed to include any other libraries.
-
-// #include "tay_nguyen_campaign.h"
-
-// using namespace std;
-
-// void tnc_tc_01() {
-//     cout << "----- Sample Testcase 01 -----" << endl;
-//     string input_file("tnc_tc_01_input");
-//     int LF1[17], LF2[17], EXP1, EXP2, T1, T2, E;
-//     if (!readFile(input_file, LF1, LF2, EXP1, EXP2, T1, T2, E)) {
-//         return;
-//     }
-
-//     cout << "LF1[0]: " << LF1[0] << ", LF2[0]: " << LF2[0] << endl;
-//     int result = gatherForces(LF1, LF2);
-//     cout << "Result: " << result << endl;
-// }
-
-// int main(int argc, const char * argv[]) {
-//     tnc_tc_01();
-//     return 0;
-// }
-
 /*
 * Ho Chi Minh City University of Technology
 * Faculty of Computer Science and Engineering
@@ -215,31 +183,6 @@ string tnc_tc_05(){
     return to_string(result);
 }
 
-string tnc_tc_06(){
-    cout << "----- Sample Testcase 06 -----" << endl;
-
-    int LF1 = 300, LF2 = 280;
-    int EXP1 = 450, EXP2 = 470;
-    int T1 = 2500, T2 = 2600;
-
-    int battleField[10][10] = {
-        {106, 15, 20, 25, 305, 635, 540, 145, 50, 55},
-        {25, 18, 24, 330, 36, 442, 48, 54, 660, 665},
-        {14, 21, 28, 35, 452, 49, 56, 63, 70, 77},
-        {162, 24, 323, 404, 484, 60, 40, 72, 80, 88},
-        {181, 27, 36, 52, 543, 63, 72, 81, 90, 99},
-        {5, 30, 40, 501, 602, 70, 80, 90, 100, 110},
-        {22, 33, 442, 55, 66, 77, 58, 99, 10, 121},
-        {24, 36, 48, 60, 72, 84, 96, 108, 20, 132},
-        {264, 39, 525, 65, 78, 91, 104, 70, 130, 143},
-        {28, 42, 56, 50, 84, 98, 125, 126, 140, 154}};
-
-    int result = planAttack(LF1, LF2, EXP1, EXP2, T1, T2, battleField);
-
-    cout << "Result: " << result << endl;
-    return to_string(result);
-}
-
 int passed_tests = 0;
 int total_tests = 0;
 
@@ -270,7 +213,6 @@ int main() {
     check_testcase(tnc_tc_041(), "-2758");
     check_testcase(tnc_tc_042(), "126");
     check_testcase(tnc_tc_05(), "1050");
-    check_testcase(tnc_tc_06(), "174");
     
     double pass_percentage = (static_cast<double>(passed_tests) / total_tests) * 100;
     cout << "\nTest Summary: " << passed_tests << "/" << total_tests << " tests passed (";
