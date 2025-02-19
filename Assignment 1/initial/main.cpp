@@ -42,244 +42,229 @@
 
 #include "tay_nguyen_campaign.h"
 
-// ANSI color codes for terminal output
-#define RESET   "\033[0m"
-#define GREEN   "\033[32m"
-#define RED     "\033[31m"
-
 using namespace std;
 
-string tnc_tc_01() {
-    cout << "----- Sample Testcase 01 -----" << endl;
+void tnc_tc_01() {
+    cout << "----- Sample Testcase 00 -----" << endl;
     string input_file("tnc_tc_01_input");
     int LF1[17], LF2[17], EXP1, EXP2, T1, T2, E;
     if (!readFile(input_file, LF1, LF2, EXP1, EXP2, T1, T2, E)) {
-        return "";
+        return;
     }
 
     cout << "LF1[0]: " << LF1[0] << ", LF2[0]: " << LF2[0] << endl;
     int result = gatherForces(LF1, LF2);
     cout << "Result: " << result << endl;
-    return to_string(result);
-}
-string tnc_tc_0211() {
-    cout << "----- Sample Testcase 02 1 1 -----" << endl;
-    string test = "Kon3 Tum";
-    string result = determineRightTarget(test);
-    cout << "Target: " << result << endl;
-    return result;
+    cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << endl;
+    cout << T1 << " " << T2 << " " << E << endl;
 }
 
-string tnc_tc_0212() {
-    cout << "----- Sample Testcase 02 1 2 -----" << endl;
-    string test = "Ple9i ku";
-    string result = determineRightTarget(test);
-    cout << "Target: " << result << endl;
-    return result;
+void testcase01 () {
+    // Testcase 1
+    cout << "----- Sample Testcase 01 -----" << endl;
+    {
+        string input_file("tnc_tc_01_input");
+        int LF1[17], LF2[17], EXP1, EXP2, T1, T2, E;
+
+        if (!readFile(input_file, LF1, LF2, EXP1, EXP2, T1, T2, E))
+        {
+            cout << "Error: Could not read file." << endl;
+            return ;
+        }
+
+        // Print all elements of LF1
+        cout << "LF1: ";
+        for (int i = 0; i < 17; i++)
+            cout << LF1[i] << " ";
+        cout << endl;
+
+        // Print all elements of LF2
+        cout << "LF2: ";
+        for (int i = 0; i < 17; i++)
+            cout << LF2[i] << " ";
+        cout << endl;
+
+        // Print other values
+        cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << endl;
+        cout << "T1: " << T1 << ", T2: " << T2 << endl;
+        cout << "E: " << E << endl;
+    }
 }
 
-string tnc_tc_0213() {
-    cout << "----- Sample Testcase 02 1 3 -----" << endl;
-    string test = "Ple1Ku4Nat9";
-    string result = determineRightTarget(test);
-    cout << "Target: " << result << endl;
-    return result;
+void testcase02 () {
+    // Testcase 2
+    cout << "----- Sample Testcase 02 -----" << endl;
+    {
+        string input_file("tnc_tc_01_input");
+        int LF1[17], LF2[17], EXP1, EXP2, T1, T2, E;
+
+        if (!readFile(input_file, LF1, LF2, EXP1, EXP2, T1, T2, E))
+        {
+            cout << "Error: Could not read file." << endl;
+            return ;
+        }
+
+        // Print all elements of LF1
+        cout << "LF1: ";
+        for (int i = 0; i < 17; i++)
+            cout << LF1[i] << " ";
+        cout << endl;
+
+        // Print all elements of LF2
+        cout << "LF2: ";
+        for (int i = 0; i < 17; i++)
+            cout << LF2[i] << " ";
+        cout << endl;
+
+        // Print other values
+        cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << endl;
+        cout << "T1: " << T1 << ", T2: " << T2 << endl;
+        cout << "E: " << E << endl;
+
+        // Test gatherForces
+        int result = gatherForces(LF1, LF2);
+        cout << "Result: " << result << endl;
+    }
 }
 
-string tnc_tc_0214() {
-    cout << "----- Sample Testcase 02 1 4 -----" << endl;
-    string test = "KonTum";
-    string result = determineRightTarget(test);
-    cout << "Target: " << result << endl;
-    return result;
-}
-
-string tnc_tc_0215() {
-    cout << "----- Sample Testcase 02 1 5 -----" << endl;
-    string test = "Buon1Ma3Thuot5-8";
-    string result = determineRightTarget(test);
-    cout << "Target: " << result << endl;
-    return result;
-}
-
-
-string tnc_tc_0221() {
-    cout << "----- Sample Testcase 02 2 1 -----" << endl;
-    return decodeTarget("Zwg Hwg", 350, 400);
-}
-
-string tnc_tc_0222() {
-    cout << "----- Sample Testcase 02 2 2 -----" << endl;
-    return decodeTarget("Pal cUd", 250, 200);
-}
-
-string tnc_tc_0223() {
-    cout << "----- Sample Testcase 02 2 3 -----" << endl;
-    return decodeTarget("random", 250, 400);
-}
-
-string tnc_tc_0224() {
-    cout << "----- Sample Testcase 02 2 4 -----" << endl;
-    return decodeTarget("DUC LAP", 350, 400);
-}
-
-
-string tnc_tc_03() {
+void testcase03 () {
+    // Testcase 3
     cout << "----- Sample Testcase 03 -----" << endl;
-    string input_file("tnc_tc_03_input");
-    int LF1[17], LF2[17], EXP1, EXP2, T1, T2, E;
-    if (!readFile(input_file, LF1, LF2, EXP1, EXP2, T1, T2, E)) {
-        return "";
+    {
+    string encodedTarget1 = "Ple9i ku5";
+    string encodedTarget2 = "Kon1 Tu4m8";
+    string encodedTarget3 = "Ko1n Tum"; //Self-Test
+
+    cout << "Decoded Target 1: " << determineRightTarget(encodedTarget1) << endl;
+    cout << "Decoded Target 2: " << determineRightTarget(encodedTarget2) << endl;
+    cout << "Decoded Target 3: " << determineRightTarget(encodedTarget3) << endl;
     }
-    manageLogistics(LF1[0], LF2[0], EXP1, EXP2, T1, T2, E);
-    cout << "T1: " << T1 << ", T2: " << T2 << endl;
-    return to_string(T1) + " " + to_string(T2);
 }
 
-string tnc_tc_041(){
-    cout << "----- Sample Testcase 04 1 -----" << endl;
-    int LF1 = 300, LF2 = 280;
-    int EXP1 = 450, EXP2 = 470;
-    int T1 = 2500, T2 = 2600;
+void testcase04 () {
+    //Testcase 4
+    cout << "----- Sample Testcase 04 -----" << endl;
+    {
+        int EXP1 = 350;
+        int EXP2 = 400;
+        string encodedMessage = "Heo Peo";
+        string decodedTarget = decodeTarget(encodedMessage, EXP1, EXP2);
+        cout << "Decoded Right Target: " << decodedTarget << endl;
 
-    // Example battlefield strength matrix
-    int battleField[10][10] = {
-        {506, 15, 20, 25, 305, 635, 540, 145, 50, 55},
-        {325, 18, 24, 330, 36, 442, 48, 54, 660, 665},
-        {14, 21, 28, 35, 452, 49, 56, 63, 70, 77},
-        {562, 24, 323, 404, 484, 60, 40, 72, 80, 88},
-        {181, 27, 36, 52, 543, 63, 72, 81, 90, 99},
-        {505, 30, 40, 501, 602, 70, 80, 90, 100, 110},
-        {922, 33, 442, 55, 66, 77, 58, 99, 110, 121},
-        {124, 36, 48, 60, 72, 84, 96, 108, 20, 132},
-        {264, 39, 525, 65, 78, 91, 104, 170, 130, 143},
-        {28, 42, 56, 50, 84, 98, 125, 126, 140, 154}
-    };
+        EXP1 = 150;
+        EXP2 = 320;
 
-    int result = planAttack(LF1, LF2, EXP1, EXP2, T1, T2, battleField);
+        encodedMessage = "Pal cUd";
+        decodedTarget = decodeTarget(encodedMessage, EXP1, EXP2);
+        cout << "Decoded Target: " << decodedTarget << endl;
 
-    if (result > 0) {
-        cout << "Army wins! Remaining strength: " << result << endl;
-    } else {
-        cout << "Army loses! Additional supplies needed: " << abs(result) << endl;
+        encodedMessage = "KAL KAD";
+        decodedTarget = decodeTarget(encodedMessage, EXP1, EXP2);
+        cout << "Decoded Target: " << decodedTarget << endl;
+
+        encodedMessage = "touht am noub";
+        decodedTarget = decodeTarget(encodedMessage, EXP1, EXP2);
+        cout << "Decoded Target: " << decodedTarget << endl;
     }
-
-    return to_string(result);
 }
 
-string tnc_tc_042(){
-    cout << "----- Sample Testcase 04 1 -----" << endl;
-    int LF1 = 300, LF2 = 280;
-    int EXP1 = 450, EXP2 = 470;
-    int T1 = 2500, T2 = 2600;
-
-    // Example battlefield strength matrix
-    int battleField[10][10] = {
-        {106, 15, 20, 25, 305, 635, 540, 145, 50, 55},
-        {25, 18, 24, 330, 36, 442, 48, 54, 660, 665},
-        {14, 21, 28, 35, 452, 49, 56, 63, 70, 77},
-        {162, 24, 323, 404, 484, 60, 40, 72, 80, 88},
-        {181, 27, 36, 52, 543, 63, 72, 81, 90, 99},
-        {5, 30, 40, 501, 602, 70, 80, 90, 100, 110},
-        {22, 33, 442, 55, 66, 77, 58, 99, 110, 121},
-        {24, 36, 48, 60, 72, 84, 96, 108, 20, 132},
-        {264, 39, 525, 65, 78, 91, 104, 70, 130, 143},
-        {28, 42, 56, 50, 84, 98, 125, 126, 140, 154}
-    };
-
-    int result = planAttack(LF1, LF2, EXP1, EXP2, T1, T2, battleField);
-
-    if (result > 0) {
-        cout << "Army wins! Remaining strength: " << result << endl;
-    } else {
-        cout << "Army loses! Additional supplies needed: " << abs(result) << endl;
-    }
-
-    return to_string(result);
-}
-string tnc_tc_05(){
+void testcase05 () {
+    //Testcase 5
     cout << "----- Sample Testcase 05 -----" << endl;
+    {
+        int LF1[17] = {250, 200, 150, 100, 80, 50, 30, 20, 10, 5, 2, 1, 1, 1, 1, 0, 0};
+        int LF2[17] = {300, 250, 200, 150, 100, 80, 50, 30, 20, 10, 5, 2, 1, 1, 1, 0, 0};
+        int EXP1 = 400, EXP2 = 450;
+        int T1 = 2800, T2 = 3000;
+        int E = 5;
 
-    int shortfall = 1050;
+        // Call function
+        manageLogistics(LF1[0], LF2[0], EXP1, EXP2, T1, T2, E);
 
-    int supply[5][5] = {
-        {150, 200, 180, 90, 110},
-        {70, 80, 120, 140, 160},
-        {220, 240, 200, 190, 130},
-        {100, 110, 300, 280, 320},
-        {170, 210, 260, 230, 290}
-    };
-
-    int result = resupply(shortfall, supply);
-    cout << "Optimal supply sum: " << result << endl;
-    return to_string(result);
+        // Print the modified supply values
+        cout << "T1: " << T1 << ", T2: " << T2 << endl;
+    }
 }
 
-string tnc_tc_06(){
+void testcase06 () {
+    //Testcase 6
     cout << "----- Sample Testcase 06 -----" << endl;
+    {
+        int LF1 = 300, LF2 = 280;
+        int EXP1 = 450, EXP2 = 470;
+        int T1 = 2500, T2 = 2600;
 
-    int LF1 = 300, LF2 = 280;
-    int EXP1 = 450, EXP2 = 470;
-    int T1 = 2500, T2 = 2600;
+        int battleField[10][10] = {
+            {106, 15, 20, 25, 305, 635, 540, 145, 50, 55},
+            {25, 18, 24, 330, 36, 442, 48, 54, 660, 665},
+            {14, 21, 28, 35, 452, 49, 56, 63, 70, 77},
+            {162, 24, 323, 404, 484, 60, 40, 72, 80, 88},
+            {181, 27, 36, 52, 543, 63, 72, 81, 90, 99},
+            {5, 30, 40, 501, 602, 70, 80, 90, 100, 110},
+            {22, 33, 442, 55, 66, 77, 58, 99, 10, 121},
+            {24, 36, 48, 60, 72, 84, 96, 108, 20, 132},
+            {264, 39, 525, 65, 78, 91, 104, 70, 130, 143},
+            {28, 42, 56, 50, 84, 98, 125, 126, 140, 154}};
 
-    int battleField[10][10] = {
-        {106, 15, 20, 25, 305, 635, 540, 145, 50, 55},
-        {25, 18, 24, 330, 36, 442, 48, 54, 660, 665},
-        {14, 21, 28, 35, 452, 49, 56, 63, 70, 77},
-        {162, 24, 323, 404, 484, 60, 40, 72, 80, 88},
-        {181, 27, 36, 52, 543, 63, 72, 81, 90, 99},
-        {5, 30, 40, 501, 602, 70, 80, 90, 100, 110},
-        {22, 33, 442, 55, 66, 77, 58, 99, 10, 121},
-        {24, 36, 48, 60, 72, 84, 96, 108, 20, 132},
-        {264, 39, 525, 65, 78, 91, 104, 70, 130, 143},
-        {28, 42, 56, 50, 84, 98, 125, 126, 140, 154}};
+        int result = planAttack(LF1, LF2, EXP1, EXP2, T1, T2, battleField);
 
-    int result = planAttack(LF1, LF2, EXP1, EXP2, T1, T2, battleField);
-
-    cout << "Result: " << result << endl;
-    return to_string(result);
+        cout << "Result: " << result << endl;
+    }
 }
+void testcase06_b () {
+    //Testcase 6 - B - Expample 4.11
+    cout << "----- Sample Testcase 06 - B -----" << endl;
+    {
+        int LF1 = 300, LF2 = 280;
+        int EXP1 = 450, EXP2 = 470;
+        int T1 = 2500, T2 = 2600;
 
-int passed_tests = 0;
-int total_tests = 0;
+        int battleField[10][10] = {
+            {506,15,20,25,305,635,540,145,50,55},
+            {325,18,24,330,36,442,48,54,660,665},
+            {14,21,28,35,452,49,56,63,70,77},
+            {562,24,323,404,484,60,40,72,80,88},
+            {181,27,36,52,543,63,72,81,90,99},
+            {505,30,40,501,602,70,80,90,100,110},
+            {922,33,442,55,66,77,58,99,110,121},
+            {124,36,48,60,72,84,96,108,120,132},
+            {264,39,525,65,78,91,104,170,130,143},
+            {28,42,56,50,84,98,125,126,140,154}
+        };
 
-void check_testcase(const string& actual, const string& expected) {
-    total_tests++;
-    if (actual == expected) {
-        cout << GREEN << "Test Passed" << RESET << endl;
-        passed_tests++;
-    } else {
-        cout << RED << "Test Failed: Expected " << expected << ", but got " << actual << RESET << endl;
+        int result = planAttack(LF1, LF2, EXP1, EXP2, T1, T2, battleField);
+
+        cout << "Result: " << result << endl;
+    }
+}
+void testcase07 () {
+    //Testcase 7
+    cout << "----- Sample Testcase 07 -----" << endl;
+    {
+        int shortfall = 1050;
+        int supply[5][5] = {
+            {150, 200, 180,  90, 110},
+            { 70,  80, 120, 140, 160},
+            {220, 240, 200, 190, 130},
+            {100, 110, 300, 280, 320},
+            {170, 210, 260, 230, 290}
+        };
+
+        int result = resupply(shortfall, supply);
+
+        cout << "Result: " << result << endl;
     }
 }
 
-int main() {
-    cout << "Running Test Cases..." << endl;
-    
-    check_testcase(tnc_tc_01(), "4955");
-    check_testcase(tnc_tc_0211(), "Buon Ma Thuot");
-    check_testcase(tnc_tc_0212(), "INVALID");
-    check_testcase(tnc_tc_0213(), "National Route 14");
-    check_testcase(tnc_tc_0214(), "INVALID");
-    check_testcase(tnc_tc_0215(), "INVALID");
-    check_testcase(tnc_tc_0221(), "Dak Lak");
-    check_testcase(tnc_tc_0222(), "Duc Lap");
-    check_testcase(tnc_tc_0223(), "INVALID");
-    check_testcase(tnc_tc_0224(), "INVALID");
-    check_testcase(tnc_tc_03(), "2660 2925");
-    check_testcase(tnc_tc_041(), "-2758");
-    check_testcase(tnc_tc_042(), "126");
-    check_testcase(tnc_tc_05(), "1050");
-    check_testcase(tnc_tc_06(), "174");
-    
-    double pass_percentage = (static_cast<double>(passed_tests) / total_tests) * 100;
-    cout << "\nTest Summary: " << passed_tests << "/" << total_tests << " tests passed (";
-    if (pass_percentage == 100.0) {
-        cout << GREEN;
-    } else {
-        cout << RED;
-    }
-    cout << pass_percentage << "% passed" << RESET << ")" << endl;
-    
+int main(int argc, const char * argv[]) {
+    tnc_tc_01();
+    testcase01();
+    testcase02();
+    testcase03();
+    testcase04();
+    testcase05();
+    testcase06();
+    testcase06_b();
+    testcase07();
     return 0;
 }

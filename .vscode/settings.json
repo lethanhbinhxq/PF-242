@@ -3,6 +3,10 @@
         "*.embeddedhtml": "html",
         "iostream": "cpp",
         "numbers": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "span": "cpp"
     }
 }
