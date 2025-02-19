@@ -21,6 +21,26 @@ const int FLAG_NORM_T = 2;
 const int FLAG_NORM_E = 3;
 const int FLAG_NORM = 4;
 
+const int NUM_SOLDIERS = 17;
+
+const int MAX_ENCODED_NUMBERS = 3;
+const int MAX_ENCODED_VALUE = 100;
+
+const string INVALID = "INVALID";
+const string CAPTURED_TARGET[] = {
+  "DECOY",
+  "DECOY",
+  "DECOY",
+  "Buon Ma Thuot",
+  "Duc Lap",
+  "Dak Lak",
+  "National Route 21",
+  "National Route 14"
+};
+
+const int MAX_TARGET_ID = 7;
+const int START_TARGET_ID = 3;
+
 void normalizeData(int &data, int flagNorm = FLAG_NORM) {
   data = max(MIN_VALUE, data);
   if (flagNorm == FLAG_NORM_LF) {
@@ -53,6 +73,7 @@ void convertArray(int arr[], stringstream &ss)
     ss >> split;
   }
 }
+
 bool readFile(
     const string &filename,
     int LF1[], int LF2[],
@@ -80,7 +101,7 @@ bool readFile(
   }
 
   // TODO: Extract values from the `data` array and store them in respective variables
-  int numSoldiers = 17;
+  
   for (int i = 0; i < numLines; i++)
   {
     stringstream ss(data[i]);
@@ -119,9 +140,8 @@ int gatherForces(int LF1[], int LF2[])
 {
   // TODO: Implement this function
   int force = 0;
-  int numSoldiers = 17;
-  int weight[numSoldiers] = {1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 15, 18, 20, 30, 40, 50, 70};
-  for (int i = 0; i < numSoldiers; i++)
+  int weight[NUM_SOLDIERS] = {1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 15, 18, 20, 30, 40, 50, 70};
+  for (int i = 0; i < NUM_SOLDIERS; i++)
   {
     normalizeData(LF1[i], FLAG_NORM_LF);
     normalizeData(LF2[i], FLAG_NORM_LF);
@@ -131,21 +151,13 @@ int gatherForces(int LF1[], int LF2[])
 }
 
 // Task 2
-// if (!numString.empty())
-//   {
-//     if (numCount < maxNum) {
-//       numbers[numCount] = stoi(numString);
-//     }
-//     numCount++;
-//   }
-
 bool convertToNumber(string& numString, int& numCount, const int& maxNum, int numbers[]) {
   bool validFlag = true;
   if (!numString.empty()) {
     if (numCount < maxNum) {
       int convertedNumber = stoi(numString);
 
-      if (convertedNumber <= 100) {
+      if (convertedNumber <= MAX_ENCODED_VALUE) {
         numbers[numCount] = convertedNumber;
       }
       else {
@@ -162,8 +174,7 @@ bool convertToNumber(string& numString, int& numCount, const int& maxNum, int nu
 string determineRightTarget(const string &target)
 {
   // TODO: Implement this function
-  int numbers[3];
-  int maxNum = 3;
+  int numbers[MAX_ENCODED_NUMBERS];
   int numCount = 0;
   int id = -1;
   string numString = "";
@@ -176,33 +187,15 @@ string determineRightTarget(const string &target)
       numString += c;
     }
 
-    // else if (!numString.empty())
-    // {
-      // if (numCount < maxNum)
-      // {
-      //   numbers[numCount] = stoi(numString);
-      //   numString.clear();
-      // }
-      // numCount++;
-    // }
-
     else {
-      if (!convertToNumber(numString, numCount, maxNum, numbers)) {
-        return "INVALID";
+      if (!convertToNumber(numString, numCount, MAX_ENCODED_NUMBERS, numbers)) {
+        return INVALID;
       }
     }
   }
-  
-  // if (!numString.empty())
-  // {
-  //   if (numCount < maxNum) {
-  //     numbers[numCount] = stoi(numString);
-  //   }
-  //   numCount++;
-  // }
 
-  if (!convertToNumber(numString, numCount, maxNum, numbers)) {
-    return "INVALID";
+  if (!convertToNumber(numString, numCount, MAX_ENCODED_NUMBERS, numbers)) {
+    return INVALID;
   }
 
   if (numCount == 1)
@@ -227,30 +220,34 @@ string determineRightTarget(const string &target)
     id = id % 5 + 3;
   }
 
-  if (id == 0 || id == 1 || id == 2) {
-    return "DECOY";
+  // if (id == 0 || id == 1 || id == 2) {
+  //   return "DECOY";
+  // }
+  // if (id == 3)
+  // {
+  //   return "Buon Ma Thuot";
+  // }
+  // if (id == 4)
+  // {
+  //   return "Duc Lap";
+  // }
+  // if (id == 5)
+  // {
+  //   return "Dak Lak";
+  // }
+  // if (id == 6)
+  // {
+  //   return "National Route 21";
+  // }
+  // if (id == 7)
+  // {
+  //   return "National Route 14";
+  // }
+
+  if (id >= MIN_VALUE && id <= MAX_TARGET_ID) {
+    return CAPTURED_TARGET[id];
   }
-  if (id == 3)
-  {
-    return "Buon Ma Thuot";
-  }
-  if (id == 4)
-  {
-    return "Duc Lap";
-  }
-  if (id == 5)
-  {
-    return "Dak Lak";
-  }
-  if (id == 6)
-  {
-    return "National Route 21";
-  }
-  if (id == 7)
-  {
-    return "National Route 14";
-  }
-  return "INVALID";
+  return INVALID;
 }
 
 bool compareLocation(const string &l1, const string &l2)
@@ -259,7 +256,6 @@ bool compareLocation(const string &l1, const string &l2)
   int length2 = l2.length();
   if (length1 != length2)
   {
-    // cout << "Length not match" << endl;
     return false;
   }
 
@@ -267,14 +263,12 @@ bool compareLocation(const string &l1, const string &l2)
   {
     if (isalpha(l1[i]) && isalpha(l2[i])) {
       if (tolower(l1[i]) != tolower(l2[i])) {
-        // cout << "Alpha not match" << endl;
         return false;
       }
     }
 
     else {
       if (l1[i] != l2[i]) {
-        // cout << "Other char not match" << endl;
         return false;
       }
     }
@@ -286,7 +280,6 @@ string decodeTarget(const string &message, int EXP1, int EXP2)
 {
   // TODO: Implement this function
   string target = "";
-  string location[] = {"Buon Ma Thuot", "Duc Lap", "Dak Lak", "National Route 21", "National Route 14"};
 
   if (EXP1 >= 300 && EXP2 >= 300)
   {
@@ -321,14 +314,14 @@ string decodeTarget(const string &message, int EXP1, int EXP2)
   // cout << "Message: |" << message << "|" << endl;
   // cout << "Target: |" << target << "|" << endl;
 
-  for (int i = 0; i < 5; i++)
+  for (int i = START_TARGET_ID; i <= MAX_TARGET_ID; i++)
   {
-    if (compareLocation(target, location[i]))
+    if (compareLocation(target, CAPTURED_TARGET[i]))
     {
-      return location[i];
+      return CAPTURED_TARGET[i];
     }
   }
-  return "INVALID";
+  return INVALID;
 }
 
 // Task 3
@@ -347,20 +340,11 @@ void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int &T1, int &T2, int
 
   if (E == 0)
   {
-    // cout << "LF1 = " << LF1 << endl;
-    // cout << "LF2 = " << LF2 << endl;
-    // cout << "T1 = " << T1 << endl;
-    // cout << "T2 = " << T2 << endl;
-    // cout << "EXP1 = " << EXP1 << endl;
-    // cout << "EXP2 = " << EXP2 << endl;
     double delta_T1 = (LF1 / (double)(LF1 + LF2)) * (double)(T1 + T2) * (1 + (double)(EXP1 - EXP2) / 100);
     double delta_T2 = (T1 + T2) - delta_T1;
 
     dT1 = T1 + delta_T1;
     dT2 = T2 + delta_T2;
-
-    // cout << "delta_T1 = " << delta_T1 << endl;
-    // cout << "delta_T2 = " << delta_T2 << endl;
   }
   else if (E >= 1 && E <= 9)
   {
@@ -401,20 +385,8 @@ int planAttack(int LF1, int LF2, int EXP1, int EXP2, int T1, int T2, int battleF
   normalizeData(T2, FLAG_NORM_T);
 
   double S = (LF1 + LF2) + (EXP1 + EXP2) * 5 + (T1 + T2) * 2;
-  // cout << "Init S = " << S << endl;
   double sumOdd = 0;
   double sumEven = 0;
-
-  // for (int i = 0; i < 10; i++) {
-  //   for (int j = 0; j < 10; j++) {
-  //     if (i % 2 == 0) {
-  //       S = S - battleField[i][j] * 2 / 3;
-  //     }
-  //     else {
-  //       S = S - battleField[i][j] * 3 / 2;
-  //     }
-  //   }
-  // }
 
   for (int i = 0; i < 10; i += 2) {
     for (int j = 0; j < 10; j++) {
@@ -429,11 +401,6 @@ int planAttack(int LF1, int LF2, int EXP1, int EXP2, int T1, int T2, int battleF
   }
 
   S = S - (sumOdd * 3 / 2) - (sumEven * 2 / 3);
-
-  // cout << "S = " << S << endl;
-  // cout << "Sum Odd = " << sumOdd << endl;
-  // cout << "Sum Even = " << sumEven << endl;
-
   return ceil(S);
 }
 
@@ -445,6 +412,7 @@ int resupply(int shortfall, int supply[5][5])
   const int size = 25;
   int fSupply[size];
   int index = 0;
+  
   for (int i = 0; i < 5; i++)
   {
     for (int j = 0; j < 5; j++)
