@@ -255,6 +255,8 @@ bool compareLocation(const string &l1, const string &l2)
 string decodeTarget(const string &message, int EXP1, int EXP2)
 {
   // TODO: Implement this function
+  normalizeData(EXP1, FLAG_NORM_EXP);
+  normalizeData(EXP2, FLAG_NORM_EXP);
   string target = "";
 
   if (EXP1 >= 300 && EXP2 >= 300)
@@ -286,6 +288,9 @@ string decodeTarget(const string &message, int EXP1, int EXP2)
       target += message[i];
     }
   }
+
+  cout << "Message: " << message << endl;
+  cout << "Target: " << target << endl;
 
   for (int i = START_TARGET_ID; i <= MAX_TARGET_ID; i++)
   {
