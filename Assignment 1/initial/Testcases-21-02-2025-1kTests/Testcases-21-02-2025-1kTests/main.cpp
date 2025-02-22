@@ -42,7 +42,7 @@ using namespace std;
 int main(int argc, const char** argv){
     string MODE = argv[1];
     string TASK = "ALL";
-    int a = 001, b = 100;
+    int a = 0, b = 1000;
 
     if(argc == 3){
         TASK = argv[2];
