@@ -136,7 +136,7 @@ string tnc_tc_041(){
 }
 
 string tnc_tc_042(){
-    cout << "----- Sample Testcase 04 1 -----" << endl;
+    cout << "----- Sample Testcase 04 2 -----" << endl;
     int LF1 = 300, LF2 = 280;
     int EXP1 = 450, EXP2 = 470;
     int T1 = 2500, T2 = 2600;
@@ -183,6 +183,31 @@ string tnc_tc_05(){
     return to_string(result);
 }
 
+string tnc_tc_06(){
+    cout << "----- Sample Testcase 06 -----" << endl;
+
+    int LF1 = 300, LF2 = 280;
+    int EXP1 = 450, EXP2 = 470;
+    int T1 = 2500, T2 = 2600;
+
+    int battleField[10][10] = {
+        {106, 15, 20, 25, 305, 635, 540, 145, 50, 55},
+        {25, 18, 24, 330, 36, 442, 48, 54, 660, 665},
+        {14, 21, 28, 35, 452, 49, 56, 63, 70, 77},
+        {162, 24, 323, 404, 484, 60, 40, 72, 80, 88},
+        {181, 27, 36, 52, 543, 63, 72, 81, 90, 99},
+        {5, 30, 40, 501, 602, 70, 80, 90, 100, 110},
+        {22, 33, 442, 55, 66, 77, 58, 99, 10, 121},
+        {24, 36, 48, 60, 72, 84, 96, 108, 20, 132},
+        {264, 39, 525, 65, 78, 91, 104, 70, 130, 143},
+        {28, 42, 56, 50, 84, 98, 125, 126, 140, 154}};
+
+    int result = planAttack(LF1, LF2, EXP1, EXP2, T1, T2, battleField);
+
+    cout << "Result: " << result << endl;
+    return to_string(result);
+}
+
 int passed_tests = 0;
 int total_tests = 0;
 
@@ -213,6 +238,7 @@ int main() {
     check_testcase(tnc_tc_041(), "-2758");
     check_testcase(tnc_tc_042(), "126");
     check_testcase(tnc_tc_05(), "1050");
+    check_testcase(tnc_tc_06(), "174");
     
     double pass_percentage = (static_cast<double>(passed_tests) / total_tests) * 100;
     cout << "\nTest Summary: " << passed_tests << "/" << total_tests << " tests passed (";

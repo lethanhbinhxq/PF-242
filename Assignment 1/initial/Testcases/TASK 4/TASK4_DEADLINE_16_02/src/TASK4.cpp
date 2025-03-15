@@ -1,0 +1,20 @@
+#include "TASK4.h"
+
+////////////////////////////////////////////////////////////////////////
+/// STUDENT'S ANSWER BEGINS HERE
+/// Complete the following functions
+/// DO NOT modify any parameters in the functions.
+////////////////////////////////////////////////////////////////////////
+
+const int MAX_LINES = 5;
+const int MAX_LINE_LENGTH = 100;
+
+int planAttack(int LF1, int LF2, int EXP1, int EXP2, int T1, int T2,
+               int battleField[10][10]) {
+  // TODO
+  return 1;
+}
+
+////////////////////////////////////////////////
+/// END OF STUDENT'S ANSWER
+////////////////////////////////////////////////
