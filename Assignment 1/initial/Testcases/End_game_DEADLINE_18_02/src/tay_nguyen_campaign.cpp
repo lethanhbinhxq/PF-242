@@ -14,12 +14,14 @@ const int MAX_LF = 1000;
 const int MAX_EXP = 600;
 const int MAX_T = 3000;
 const int MAX_E = 99;
+const int MAX_LFS = 304000;
 
 const int FLAG_NORM_LF = 0;
 const int FLAG_NORM_EXP = 1;
 const int FLAG_NORM_T = 2;
 const int FLAG_NORM_E = 3;
-const int FLAG_NORM = 4;
+const int FLAG_NORM_LFS = 4;
+const int FLAG_NORM = 5;
 
 const int NUM_SOLDIERS = 17;
 
@@ -54,6 +56,9 @@ void normalizeData(int &data, int flagNorm = FLAG_NORM) {
   }
   else if (flagNorm == FLAG_NORM_E) {
     data = min(MAX_E, data);
+  }
+  else if (flagNorm == FLAG_NORM_LFS) {
+    data = min(MAX_LFS, data);
   }
 }
 
@@ -220,30 +225,6 @@ string determineRightTarget(const string &target)
     id = id % 5 + 3;
   }
 
-  // if (id == 0 || id == 1 || id == 2) {
-  //   return "DECOY";
-  // }
-  // if (id == 3)
-  // {
-  //   return "Buon Ma Thuot";
-  // }
-  // if (id == 4)
-  // {
-  //   return "Duc Lap";
-  // }
-  // if (id == 5)
-  // {
-  //   return "Dak Lak";
-  // }
-  // if (id == 6)
-  // {
-  //   return "National Route 21";
-  // }
-  // if (id == 7)
-  // {
-  //   return "National Route 14";
-  // }
-
   if (id >= MIN_VALUE && id <= MAX_TARGET_ID) {
     return CAPTURED_TARGET[id];
   }
@@ -279,6 +260,8 @@ bool compareLocation(const string &l1, const string &l2)
 string decodeTarget(const string &message, int EXP1, int EXP2)
 {
   // TODO: Implement this function
+  normalizeData(EXP1, FLAG_NORM_EXP);
+  normalizeData(EXP2, FLAG_NORM_EXP);
   string target = "";
 
   if (EXP1 >= 300 && EXP2 >= 300)
@@ -296,7 +279,7 @@ string decodeTarget(const string &message, int EXP1, int EXP2)
       }
       
       else if (!isdigit(c) && c != ' ') {
-        return "INVALID";
+        return INVALID;
       }
 
       target += c;
@@ -310,9 +293,6 @@ string decodeTarget(const string &message, int EXP1, int EXP2)
       target += message[i];
     }
   }
-
-  // cout << "Message: |" << message << "|" << endl;
-  // cout << "Target: |" << target << "|" << endl;
 
   for (int i = START_TARGET_ID; i <= MAX_TARGET_ID; i++)
   {
