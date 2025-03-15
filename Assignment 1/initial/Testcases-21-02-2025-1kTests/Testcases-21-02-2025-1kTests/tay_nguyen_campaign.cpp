@@ -305,52 +305,123 @@ string decodeTarget(const string &message, int EXP1, int EXP2)
 }
 
 // Task 3
+// void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int &T1, int &T2, int E)
+// {
+//   // TODO: Implement this function
+//   double dT1;
+//   double dT2;
+//   normalizeData(LF1, FLAG_NORM);
+//   normalizeData(LF2, FLAG_NORM);
+//   normalizeData(EXP1, FLAG_NORM_EXP);
+//   normalizeData(EXP2, FLAG_NORM_EXP);
+//   normalizeData(T1, FLAG_NORM_T);
+//   normalizeData(T2, FLAG_NORM_T);
+//   normalizeData(E, FLAG_NORM_E);
+
+//   if (E == 0)
+//   {
+//     double delta_T1 = (LF1 / (double)(LF1 + LF2)) * (double)(T1 + T2) * (1 + (double)(EXP1 - EXP2) / 100);
+//     double delta_T2 = (T1 + T2) - delta_T1;
+
+//     dT1 = T1 + delta_T1;
+//     dT2 = T2 + delta_T2;
+
+//     cout << "Total T: " << T1 + T2 << endl;
+//     cout << "Delta 1: " << delta_T1 << endl;
+//     cout << "Delta 2: " << delta_T2 << endl;
+//     cout << "T1: " << dT1 << endl;
+//     cout << "T2: " << dT2 << endl;
+//   }
+//   else if (E >= 1 && E <= 9)
+//   {
+//     dT1 = T1 - T1 * E / 100;
+//     dT2 = T2 - T2 * E * 0.5 / 100;
+//   }
+//   else if (E >= 10 && E <= 29)
+//   {
+//     dT1 = T1 + E * 50;
+//     dT2 = T2 + E * 50;
+//   }
+//   else if (E >= 30 && E <= 59)
+//   {
+//     dT1 = T1 + T1 * E * 0.5 / 100;
+//     dT2 = T2 + T2 * E * 0.2 / 100;
+//   }
+//   else {
+//     dT1 = T1;
+//     dT2 = T2;
+//   }
+
+//   T1 = ceil(dT1);
+//   T2 = ceil(dT2);
+  
+//   normalizeData(T1, FLAG_NORM_T);
+//   normalizeData(T2, FLAG_NORM_T);
+// }
+
 void manageLogistics(int LF1, int LF2, int EXP1, int EXP2, int &T1, int &T2, int E)
 {
   // TODO: Implement this function
-  double dT1;
-  double dT2;
-  normalizeData(LF1, FLAG_NORM);
-  normalizeData(LF2, FLAG_NORM);
-  normalizeData(EXP1, FLAG_NORM_EXP);
-  normalizeData(EXP2, FLAG_NORM_EXP);
-  normalizeData(T1, FLAG_NORM_T);
-  normalizeData(T2, FLAG_NORM_T);
-  normalizeData(E, FLAG_NORM_E);
+  EXP1 = max(0, min(600, EXP1));
+  EXP2 = max(0, min(600, EXP2));
+  
+  T1 = max(0, min(3000, T1));
+  T2 = max(0, min(3000, T2));
 
-  if (E == 0)
-  {
+  LF1 = max(0, 304000);
+  LF2 = max(0, 304000);
+
+  // E == 0: ΔT1 = (LF1/(LF1+LF2)) * (T1+T2) * (1 + (EXP1-EXP2)/100)
+  if (E == 0) {
+    // double totalT = T1 + T2;
+    // double deltaT1 = totalT * ((double)LF1 / (double)(LF1 + LF2)) * (1 + (double)(EXP1 - EXP2) / 100.0);
+    // double deltaT2 = totalT - deltaT1;
+    double dT1, dT2;
     double delta_T1 = (LF1 / (double)(LF1 + LF2)) * (double)(T1 + T2) * (1 + (double)(EXP1 - EXP2) / 100);
     double delta_T2 = (T1 + T2) - delta_T1;
 
     dT1 = T1 + delta_T1;
     dT2 = T2 + delta_T2;
+
+    int newT1 = ceil(dT1);
+    int newT2 = ceil(dT2);
+
+    T1 = max(0, min(3000, newT1));
+    T2 = max(0, min(3000, newT2));
+    return;
   }
-  else if (E >= 1 && E <= 9)
-  {
-    dT1 = T1 - T1 * E / 100;
-    dT2 = T2 - T2 * E * 0.5 / 100;
-  }
-  else if (E >= 10 && E <= 29)
-  {
-    dT1 = T1 + E * 50;
-    dT2 = T2 + E * 50;
-  }
-  else if (E >= 30 && E <= 59)
-  {
-    dT1 = T1 + T1 * E * 0.5 / 100;
-    dT2 = T2 + T2 * E * 0.2 / 100;
-  }
-  else {
-    dT1 = T1;
-    dT2 = T2;
+  
+  // E in [1,9]: Corps 1 loses E*1% and corps 2 loses E*0.5%
+  if (E >= 1 && E <= 9) {
+    double newT1 = T1 - T1 * (E / 100.0);
+    double newT2 = T2 - T2 * ((E * 0.5) / 100.0);
+
+    T1 = max(0, min(3000, (int)ceil(newT1)));
+    T2 = max(0, min(3000, (int)ceil(newT2)));
   }
 
-  T1 = ceil(dT1);
-  T2 = ceil(dT2);
-  
-  normalizeData(T1, FLAG_NORM_T);
-  normalizeData(T2, FLAG_NORM_T);
+  // E in [10,29]: Additional supply of E*50 units
+  else if (E >= 10 && E <= 29) {
+    int add = E * 50;
+
+    T1 = min(T1 + add, 3000);
+    T2 = min(T2 + add, 3000);
+  }
+
+  // E in [30,59]: Corps 1 increases by E*0.5% and corps 2 increases by E*0.2%
+  else if (E >= 30 && E <= 59) {
+    double newT1 = T1 + T1 * ((E * 0.5) / 100.0);
+    double newT2 = T2 + T2 * ((E * 0.2) / 100.0);
+
+    T1 = min((int)ceil(newT1), 3000);
+    T2 = min((int)ceil(newT2), 3000);
+  }
+
+  // E in [60,99]: No adjustment
+  else if (E >= 60 && E <= 99) {
+    T1 = max(0, min(T1, 3000));
+    T2 = max(0, min(T2, 3000));
+  }
 }
 
 // Task 4
