@@ -480,9 +480,10 @@ void UnitList::removeWithQuantity(int quantity) {
 string UnitList::str() const {
     string unitListStr = "UnitList[";
     unitListStr += "count_vehicle=" + to_string(this->vehicleCount);
-    unitListStr += ";count_infantry=" + to_string(this->infantryCount) + ";";
+    unitListStr += ";count_infantry=" + to_string(this->infantryCount);
 
     UnitNode* cur = this->headUnit;
+    if (cur) unitListStr += ";";
     while (cur) {
         unitListStr += cur->unit->str();
         if (cur->next) {
@@ -592,11 +593,15 @@ void Army::updateScores() {
     int newEXP = 0;
     int newLF = 0;
 
+    // for (int i = 0; i < vehicleList.size(); i++) {
+    //     cout << vehicleList[i]->getAttackScore() << endl;
+    // }
+
     for (int i = 0; i < infantryList.size(); i++)  {
         newEXP += infantryList[i]->getAttackScore();
     }
     for (int i = 0; i < vehicleList.size(); i++) {
-        newLF = vehicleList[i]->getAttackScore();
+        newLF += vehicleList[i]->getAttackScore();
     }
     this->EXP = newEXP;
     this->LF = newLF;
@@ -655,7 +660,6 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
         else if (foundI && foundV) {
             this->battleFlag = true;
         }
-        cout << this->battleFlag << endl;
 
         if (!battleFlag) {
             this->unitList->updateUnitScore(DECREASE_10_PERCENT_WEIGHT);
@@ -668,7 +672,7 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
             //     cout << vehicleCombo[i]->str() << endl;
             // }
             removeUnit(infantryCombo, vehicleCombo);
-            // confiscate(this, enemy);
+            confiscate(this, enemy);
         }
     }
 
@@ -688,7 +692,7 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
         }
     }
 
-    // updateScores();
+    updateScores();
 }
 
 bool LiberationArmy::getBattleFlag() {

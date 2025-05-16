@@ -95,10 +95,10 @@ void sample_tc_2() {
     cout << liberationArmy->str() << endl;
     cout << arvn->str() << endl;
 
-    // delete liberationArmy;
-    // delete arvn;
-    // delete[] unitArrayOfLiber;
-    // delete[] unitArrayOfAr;
+    delete liberationArmy;
+    delete arvn;
+    delete[] unitArrayOfLiber;
+    delete[] unitArrayOfAr;
 }
 
 int main(int argc, const char * argv[]) {
