@@ -88,8 +88,8 @@ void sample_tc_2() {
 
     Army* enemyLiber = arvn;
     liberationArmy->fight(enemyLiber, false);
-    // Army* enemyAr = liberationArmy;
-    // arvn->fight(enemyAr, false);
+    Army* enemyAr = liberationArmy;
+    arvn->fight(enemyAr, false);
 
     cout << "* After the fight" << endl;
     cout << liberationArmy->str() << endl;

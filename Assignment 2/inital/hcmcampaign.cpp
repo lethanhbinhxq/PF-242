@@ -627,6 +627,13 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
         vector<Unit*> infantryUnits = this->unitList->getUnitsByType(INFANTRY_UNIT);
         vector<Unit*> vehicleUnits = this->unitList->getUnitsByType(VEHICLE_UNIT);
 
+        // for (int i = 0; i < infantryUnits.size(); i++) {
+        //         cout << infantryUnits[i]->str() << endl;
+        //     }
+        //     for (int i = 0; i < vehicleUnits.size(); i++) {
+        //         cout << vehicleUnits[i]->str() << endl;
+        //     }
+
         vector<Unit*> infantryCombo = findMinCombination(infantryUnits, enemy->getEXP());
         vector<Unit*> vehicleCombo = findMinCombination(vehicleUnits, enemy->getLF());
         bool foundI = !infantryCombo.empty();
@@ -650,12 +657,12 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
             this->unitList->updateUnitScore(DECREASE_10_PERCENT_WEIGHT);
         }
         else {
-            for (int i = 0; i < infantryCombo.size(); i++) {
-                cout << infantryCombo[i]->str() << endl;
-            }
-            for (int i = 0; i < vehicleCombo.size(); i++) {
-                cout << vehicleCombo[i]->str() << endl;
-            }
+            // for (int i = 0; i < infantryCombo.size(); i++) {
+            //     cout << infantryCombo[i]->str() << endl;
+            // }
+            // for (int i = 0; i < vehicleCombo.size(); i++) {
+            //     cout << vehicleCombo[i]->str() << endl;
+            // }
             removeUnit(infantryCombo, vehicleCombo);
             // confiscate(this, enemy);
         }
