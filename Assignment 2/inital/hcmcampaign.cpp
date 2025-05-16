@@ -248,7 +248,9 @@ bool UnitList::insert(Unit* unit) {
         UnitNode* cur = this->headUnit;
         bool foundFlag = false;
         while (cur) {
-            if (cur->unit->getEnumType() == unit->getEnumType()) {
+            bool sameDataType = (dynamic_cast<Vehicle*>(cur->unit) && dynamic_cast<Vehicle*>(unit)) || (dynamic_cast<Infantry*>(cur->unit) && dynamic_cast<Infantry*>(unit));
+
+            if (sameDataType && cur->unit->getEnumType() == unit->getEnumType()) {
                 foundFlag = true;
                 int newQuantity = cur->unit->getQuantity() + unit->getQuantity();
                 cur->unit->setQuantity(newQuantity);
@@ -426,6 +428,10 @@ void UnitList::clear() {
 
 bool UnitList::isFull() {
     return (this->capacity == this->vehicleCount + this->infantryCount);
+}
+
+bool UnitList::isEmpty() {
+    return (this->vehicleCount + this->infantryCount == 0);
 }
 
 Unit* UnitList::pop_back_unit() {
@@ -609,10 +615,8 @@ void Army::removeUnit(vector<Unit*> infantryList, vector<Unit*> vehicleList) {
 void Army::confiscate(Army* winner, Army* loser) {
     UnitList* winnerUL = winner->getUnitList();
     UnitList* loserUL = loser->getUnitList();
-    while(!(winnerUL->isFull())) {
+    while(!(winnerUL->isFull()) && !(loserUL->isEmpty())) {
         winnerUL->insert(loserUL->pop_back_unit());
-        // auto a = loserUL->pop_back_unit();
-        break;
     }
 }
 

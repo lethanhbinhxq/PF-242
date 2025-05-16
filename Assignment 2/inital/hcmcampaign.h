@@ -235,6 +235,7 @@ public:
     void addUnitList(UnitList list);
     void clear();
     bool isFull();
+    bool isEmpty();
     Unit* pop_back_unit();
     void removeWithQuantity(int quantity = 1);
 };
