@@ -101,6 +101,17 @@ void sample_tc_2() {
     delete[] unitArrayOfAr;
 }
 
+void sample_tc_3() {
+    cout << "----- Sample Testcase 03 -----" << endl;
+    HCMCampaign* campaign = new HCMCampaign("config.txt");
+    cout << "** Before the fight" << endl;
+    cout << campaign->printResult() << endl;
+    cout << "** After the fight" << endl;
+    campaign->run();
+    cout << campaign->printResult() << endl;
+    delete campaign;
+}
+
 int main(int argc, const char * argv[]) {
     sample_tc_2();
     return 0;

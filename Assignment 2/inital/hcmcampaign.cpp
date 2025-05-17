@@ -743,7 +743,7 @@ vector<Unit*> LiberationArmy::findMinCombination(vector<Unit*>& units, int targe
     vector<Unit*> minCombo;
     for (int i = 0; i < pPair.size(); i++) {
         int score = pPair[i].first;
-        if (score > targetValue && score < minScore) {
+        if (score >= targetValue && score < minScore) {
             minScore = score;
             minCombo = pPair[i].second;
         }
@@ -1065,9 +1065,6 @@ void Configuration::readUnitList(const string& str) {
         char c;
         stringstream ss(parameters);
         ss >> quantity >> c >> weight >> c >> c >> x >> c >> y >> c >> c >> armyBelong;
-        // cout << "Parameters: " << parameters << endl;
-        // cout << "Quantity: " << quantity << endl;
-        
         bool infantry;
         InfantryType iType;
         VehicleType vType;
@@ -1294,7 +1291,6 @@ HCMCampaign::HCMCampaign(const string &config_file_path) {
 void HCMCampaign::run() {
     int eventCode = this->config->getEventCode();
     if (eventCode < 75) {
-        this->liberationArmy->fight(this->arvn, false);
         this->arvn->fight(this->liberationArmy, true);
     }
     else {
