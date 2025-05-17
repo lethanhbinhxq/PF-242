@@ -254,6 +254,9 @@ bool UnitList::insert(Unit* unit) {
                 foundFlag = true;
                 int newQuantity = cur->unit->getQuantity() + unit->getQuantity();
                 cur->unit->setQuantity(newQuantity);
+                if (dynamic_cast<Infantry*>(unit)) {
+                    cur->unit->getAttackScore();
+                }
                 return false;
             }
             cur = cur->next;
