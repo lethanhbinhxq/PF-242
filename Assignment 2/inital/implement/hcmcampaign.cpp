@@ -233,6 +233,18 @@ UnitList::UnitList(int capacity) {
     this->tailUnit = nullptr;
 }
 
+UnitList::~UnitList() {
+    UnitNode* cur = this->headUnit;
+    while (cur) {
+        UnitNode* temp = cur->next;
+        cur->next = nullptr;
+        delete cur;
+        cur = temp;
+    }
+    this->headUnit = nullptr;
+    this->tailUnit = nullptr;
+}
+
 void UnitList::insertFront(UnitNode* newNode) {
     newNode->next = this->headUnit;
     this->headUnit = newNode;

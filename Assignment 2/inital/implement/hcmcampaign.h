@@ -224,6 +224,7 @@ private:
     int nextNearestFibonacci(int n);
 public:
     UnitList(int capacity);
+    ~UnitList();
     bool insert(Unit *unit);                   // return true if insert successfully
     bool isContain(VehicleType vehicleType);   // return true if it exists
     bool isContain(InfantryType infantryType); // return true if it exists
