@@ -25,6 +25,7 @@ Vehicle::~Vehicle() {}
 int Vehicle::getAttackScore() {
     double score = ((double)(this->vehicleType) * 304 + this->quantity * this->weight) / 30;
     score *= this->terrainModifier;
+    setAttackScoreImmutable(score);
     return ceil(score);
 }
 

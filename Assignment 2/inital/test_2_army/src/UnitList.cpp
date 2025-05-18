@@ -1,7 +1,36 @@
 #include "UnitList.h"
 
-UnitList::UnitList(int capacity) {
-    this->capacity = capacity;
+
+bool UnitList::checkSpecialNumber(int S, int base) {
+    while (S > 0) {
+        if (S % base > 1) {
+            return false;
+        }
+        S /= base;
+    }
+    return true;
+}
+
+UnitList::UnitList(int S) {
+    int bases[] = {3, 5, 7};
+    const int SPECIAL_CAPACITY = 12;
+    const int NORMAL_CAPACITY = 8; 
+    bool specialFlag = false;
+
+    for (int i = 0; i < sizeof(bases) / sizeof(int); i++) {
+        if (checkSpecialNumber(S, bases[i])) {
+            specialFlag = true;
+            break;
+        }
+    }
+
+    if (specialFlag) {
+        this->capacity = SPECIAL_CAPACITY;
+    }
+    else {
+        this->capacity = NORMAL_CAPACITY;
+    }
+
     this->vehicleCount = 0;
     this->infantryCount = 0;
     this->headUnit = nullptr;
@@ -30,7 +59,8 @@ bool UnitList::insert(Unit* unit) {
                 int newQuantity = cur->unit->getQuantity() + unit->getQuantity();
                 cur->unit->setQuantity(newQuantity);
                 if (dynamic_cast<Infantry*>(unit)) {
-                    cur->unit->getAttackScore();
+                    int score = cur->unit->getAttackScore();
+                    cur->unit->setAttackScoreImmutable(score);
                 }
                 return false;
             }
@@ -253,6 +283,10 @@ void UnitList::removeWithQuantity(int quantity) {
         cur = temp;
         
     }
+}
+
+int UnitList::getCapacity() {
+    return this->capacity;
 }
 
 string UnitList::str() const {

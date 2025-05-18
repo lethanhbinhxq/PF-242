@@ -12,16 +12,6 @@ void Army::normalizeArmyData() {
     this->EXP = min(this->EXP, MAX_EXP);
 }
 
-bool Army::checkSpecialNumber(int S, int base) {
-    while (S > 0) {
-        if (S % base > 1) {
-            return false;
-        }
-        S /= base;
-    }
-    return true;
-}
-
 Army::Army(): LF(0), EXP(0), name(""), unitList(nullptr){}
 
 Army::Army(Unit **unitArray, int size, string name) {
@@ -29,37 +19,21 @@ Army::Army(Unit **unitArray, int size, string name) {
     this->LF = 0;
     this->EXP = 0;
     this->battleFlag = false;
-    int bases[] = {3, 5, 7};
-    bool specialFlag = false;
-
-    const int SPECIAL_CAPACITY = 12;
-    const int NORMAL_CAPACITY = 8; 
 
     for (int i = 0; i < size; i++) {
         if (dynamic_cast<Vehicle*>(unitArray[i])) {
             this->LF += unitArray[i]->getAttackScore();
         }
         else {
-            this->EXP += unitArray[i]->getAttackScore();
+            int score = unitArray[i]->getAttackScore();
+            this->EXP += score;
         }
     }
 
     normalizeArmyData();
 
     int S = this->LF + this->EXP;
-    for (int i = 0; i < sizeof(bases) / sizeof(int); i++) {
-        if (checkSpecialNumber(S, bases[i])) {
-            specialFlag = true;
-            break;
-        }
-    }
-
-    if (specialFlag) {
-        this->unitList = new UnitList(SPECIAL_CAPACITY);
-    }
-    else {
-        this->unitList = new UnitList(NORMAL_CAPACITY);
-    }
+    this->unitList = new UnitList(S);
 
     for (int i = 0; i < size; i++) {
         this->unitList->insert(unitArray[i]);

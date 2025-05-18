@@ -13,7 +13,6 @@ protected:
     bool battleFlag;
 
     void normalizeArmyData();
-    bool checkSpecialNumber(int S, int base);
 
 public:
     Army();

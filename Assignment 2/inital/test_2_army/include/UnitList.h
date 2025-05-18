@@ -42,8 +42,9 @@ private:
     void insertRear(UnitNode* newNode);
 
     int nextNearestFibonacci(int n);
+    bool checkSpecialNumber(int S, int base);
 public:
-    UnitList(int capacity);
+    UnitList(int S);
     bool insert(Unit *unit);                   // return true if insert successfully
     bool isContain(VehicleType vehicleType);   // return true if it exists
     bool isContain(InfantryType infantryType); // return true if it exists
@@ -58,6 +59,7 @@ public:
     bool isEmpty();
     Unit* pop_back_unit();
     void removeWithQuantity(int quantity = 1);
+    int getCapacity();
 };
 
 #endif

@@ -76,7 +76,6 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
     }
 
     else {
-        cout << "Denfense = true for liberation" << endl;
         this->LF = ceil(this->LF * 1.3);
         this->EXP = ceil(this->EXP * 1.3);
         // cout << "LF = " << LF << endl;
@@ -118,7 +117,7 @@ vector<Unit*> LiberationArmy::findMinCombination(vector<Unit*>& units, int targe
     pPair.push_back({0, {}});
 
     for (int i = 0; i < units.size(); i++) {
-        int unitScore = units[i]->getAttackScore();
+        int unitScore = units[i]->getAttackScoreImmutable();
         int pPairSize = pPair.size();
 
         for (int j = 0; j < pPairSize; j++) {

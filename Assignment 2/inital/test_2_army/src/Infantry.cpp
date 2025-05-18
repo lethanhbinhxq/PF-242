@@ -77,6 +77,7 @@ int Infantry::getAttackScore() {
     // cout << "Score after personal: " << score;
 
     score = (int)(this->infantryType) * 56 + this->quantity * this->weight;
+    setAttackScoreImmutable(score);
     return score;
 }
 
