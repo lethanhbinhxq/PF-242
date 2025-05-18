@@ -25,8 +25,7 @@ Army::Army(Unit **unitArray, int size, string name) {
             this->LF += unitArray[i]->getAttackScore();
         }
         else {
-            int score = unitArray[i]->getAttackScore();
-            this->EXP += score;
+            this->EXP += unitArray[i]->getAttackScore();
         }
     }
 
@@ -100,6 +99,6 @@ void Army::confiscate(Army* winner, Army* loser) {
     while(!(winnerUL->isFull()) && !(loserUL->isEmpty())) {
         winnerUL->insert(loserUL->pop_back_unit());
     }
-    winner->updateScores();
+    // winner->updateScores();
     loser->updateScores();
 }

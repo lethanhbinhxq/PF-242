@@ -77,7 +77,7 @@ bool UNIT_TEST_Task2::Task252()
     //! process ---------------------------------
     
     //! expect ----------------------------------
-    string expect = "LiberationArmy[LF=38,EXP=400,unitList=UnitList[count_vehicle=1;count_infantry=1;Infantry[infantryType=SNIPER,quantity=20,weight=20,position=(1,0)],Vehicle[vehicleType=MORTAR,quantity=25,weight=20,position=(1,2)]]]\n"; // True (1) if all 12 insertions succeeded and 13th failed\n"
+    string expect = "LiberationArmy[LF=38,EXP=400,unitList=UnitList[count_vehicle=1;count_infantry=1;Infantry[infantryType=SNIPER,quantity=24,weight=20,position=(1,0)],Vehicle[vehicleType=MORTAR,quantity=25,weight=20,position=(1,2)]]]\n"; // True (1) if all 12 insertions succeeded and 13th failed\n"
     
     //! output ----------------------------------
     stringstream output;

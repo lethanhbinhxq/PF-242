@@ -48,6 +48,9 @@ void UnitList::insertRear(UnitNode* newNode) {
 }
 
 bool UnitList::insert(Unit* unit) {
+    if (!unit) {
+        return false;
+    }
     if (this->vehicleCount + this->infantryCount < this->capacity) {
         UnitNode* cur = this->headUnit;
         bool foundFlag = false;
