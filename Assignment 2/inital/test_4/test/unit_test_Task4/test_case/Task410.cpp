@@ -16,7 +16,7 @@ bool UNIT_TEST_Task4::Task410() {
     ofs << "UNIT_LIST=[";
     for (int i = 0; i < 15; ++i) {
         ofs << "TANK(1,1,(" << (i%10+1) << "," << (i%10+1) << "),0)";
-        if (i < 14) ofs << ",";
+        ofs << ",";
     }
     for (int i = 0; i < 15; ++i) {
         ofs << "TRUCK(3,3,(" << (i%10+1) << "," << (i%10+1) << "),1)";
@@ -40,7 +40,7 @@ bool UNIT_TEST_Task4::Task410() {
     string expect = "** Before the fight\n"
 "LIBERATIONARMY[LF=915,EXP=0]-ARVN[LF=15,EXP=0]\n"
 "** After the fight\n"
-"LIBERATIONARMY[LF=62,EXP=0]-ARVN[LF=5,EXP=0]";
+"LIBERATIONARMY[LF=62,EXP=0]-ARVN[LF=0,EXP=0]";
     remove(cfg.c_str());
     return printResult(result, expect, name);
 }

@@ -152,7 +152,7 @@ class Unit
 protected:
     int quantity, weight;
     Position pos;
-    double terrainModifier;
+    int computedAttackScore;
 
 public:
     Unit();
@@ -165,7 +165,8 @@ public:
     void setQuantity(int quantity);
     int getWeight() const;
     void setWeight(int weight);
-    void setTerrainModifier(double terrainModifier);
+    int getComputedAttackScore() const;
+    void setComputedAttackScore(int score);
     virtual int getEnumType() const = 0;
 };
 
@@ -248,7 +249,6 @@ protected:
     Position* pos;
 public:
     TerrainElement();
-    TerrainElement(Position p);
     ~TerrainElement();
     Position* getPosition();
     void setPosition(Position* p);
@@ -305,6 +305,9 @@ public:
                 vector<Position *> arrayRiver, vector<Position *> arrayFortification,
                 vector<Position *> arrayUrban, vector<Position *> arraySpecialZone);
     ~BattleField();
+    int getNRows() const;
+    int getNCols() const;
+    TerrainElement* getTerrainElement(int i, int j);
     string str();
 };
 

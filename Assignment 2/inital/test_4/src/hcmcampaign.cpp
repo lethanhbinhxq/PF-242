@@ -49,14 +49,14 @@ double Position::calculateDistance(Position a, Position b) {
 }
 
 // class Unit
-Unit::Unit(): quantity(0), weight(0), pos(Position()), terrainModifier(1) {}
+Unit::Unit(): quantity(0), weight(0), pos(Position()), computedAttackScore(0) {}
 
 Unit::Unit(int quantity, int weight, Position pos) {
     this->quantity = quantity;
     this->weight = weight;
     this->pos.setRow(pos.getRow());
     this->pos.setCol(pos.getCol());
-    this->terrainModifier = 1;
+    this->computedAttackScore = 0;
 }
 
 Unit::~Unit() {}
@@ -81,8 +81,12 @@ void Unit::setWeight(int weight) {
     this->weight = weight;
 }
 
-void Unit::setTerrainModifier(double terrainModifier) {
-    this->terrainModifier = terrainModifier;
+int Unit::getComputedAttackScore() const {
+    return this->computedAttackScore;
+}
+
+void Unit::setComputedAttackScore(int score) {
+    this->computedAttackScore = score;
 }
 
 // class Vehicle
@@ -107,8 +111,9 @@ Vehicle::~Vehicle() {}
 
 int Vehicle::getAttackScore() {
     double score = ((double)(this->vehicleType) * 304 + this->quantity * this->weight) / 30;
-    score *= this->terrainModifier;
-    return ceil(score);
+    int attackScore = ceil(score);
+    setComputedAttackScore(attackScore);
+    return attackScore;
 }
 
 int Vehicle::getEnumType() const {
@@ -208,7 +213,7 @@ int Infantry::getAttackScore() {
     }
 
     score = (int)(this->infantryType) * 56 + this->quantity * this->weight;
-    score *= this->terrainModifier;
+    setComputedAttackScore(score);
     return score;
 }
 
@@ -747,7 +752,7 @@ vector<Unit*> LiberationArmy::findMinCombination(vector<Unit*>& units, int targe
     pPair.push_back({0, {}});
 
     for (int i = 0; i < units.size(); i++) {
-        int unitScore = units[i]->getAttackScore();
+        int unitScore = units[i]->getComputedAttackScore();
         int pPairSize = pPair.size();
 
         for (int j = 0; j < pPairSize; j++) {
@@ -834,15 +839,7 @@ void TerrainElement::setPosition(Position* p) {
 
 // class Road
 void Road::getEffect(Army *army) {
-    UnitList* ul = army->getUnitList();
-    vector<Unit*> infantryUnits = ul->getUnitsByType(INFANTRY_UNIT);
-    vector<Unit*> vehicleUnits = ul->getUnitsByType(VEHICLE_UNIT);
-    for (int i = 0; i < (int)(infantryUnits.size()); i++) {
-        infantryUnits[i]->setTerrainModifier(1);
-    }
-    for (int i = 0; i < (int)(vehicleUnits.size()); i++) {
-        vehicleUnits[i]->setTerrainModifier(1);
-    }
+    // no effect
 }
 
 // class Mountain
@@ -851,16 +848,17 @@ void Mountain::updateArmyScore(vector<Unit*>& units, double disThreshold, double
         double distance = Position::calculateDistance(*(this->pos), units[i]->getCurrentPosition());
         if (distance <= disThreshold) {
             if (increase) {
-                score += ratio * units[i]->getAttackScore();
+                score += ratio * units[i]->getComputedAttackScore();
             }
             else {
-                score -= ratio * units[i]->getAttackScore();
+                score -= ratio * units[i]->getComputedAttackScore();
             }
         }
     }
 }
 
 void Mountain::getEffect(Army* army) {
+    if (!army) return;
     double EXP = army->getEXP();
     double LF = army->getLF();
     UnitList* ul = army->getUnitList();
@@ -875,16 +873,21 @@ void Mountain::getEffect(Army* army) {
         updateArmyScore(infantryUnits, 4, 0.2, EXP);
         updateArmyScore(vehicleUnits, 4, 0.05, LF, false);
     }
+    army->setEXP(EXP);
+    army->setLF(LF);
 }
 
 // class River
 void River::getEffect(Army* army) {
+    if (!army) return;
     UnitList* ul = army->getUnitList();
     vector<Unit*> infantryUnits = ul->getUnitsByType(INFANTRY_UNIT);
     for (int i = 0; i < (int)(infantryUnits.size()); i++) {
         double distance = Position::calculateDistance(*(this->pos), infantryUnits[i]->getCurrentPosition());
         if (distance <= 2) {
-            infantryUnits[i]->setTerrainModifier(1 - 0.1);
+            int oldScore = infantryUnits[i]->getComputedAttackScore();
+            double newScore = oldScore * (1 - 0.1);
+            infantryUnits[i]->setComputedAttackScore(ceil(newScore));
         }
     }
 }
@@ -902,20 +905,21 @@ void Urban::updateAttackScore(vector<Unit*>& units, vector<int> types, double di
             }
         }
         if (found && distance <= disThreshold) {
-            int attackScore = units[i]->getAttackScore();
-            double terrainModifier;
+            int oldScore = units[i]->getComputedAttackScore();
+            double newScore;
             if (infantry) {
-                terrainModifier = coefficient * attackScore / distance;
+                newScore = oldScore + coefficient * oldScore / distance;
             }
             else {
-                terrainModifier = coefficient;
+                newScore = oldScore * (1 - coefficient);
             }
-            units[i]->setTerrainModifier(terrainModifier);
+            units[i]->setComputedAttackScore(ceil(newScore));
         }
     }
 }
 
 void Urban::getEffect(Army* army) {
+    if (!army) return;
     UnitList* ul = army->getUnitList();
     vector<Unit*> infantryUnits = ul->getUnitsByType(INFANTRY_UNIT);
     vector<Unit*> vehicleUnits = ul->getUnitsByType(VEHICLE_UNIT);
@@ -929,22 +933,25 @@ void Urban::getEffect(Army* army) {
     }
     else {
         vector<int> infTypes = {REGULARINFANTRY};
-        double coefficient = (double)3 / 2;
+        double coefficient = 1.5;
         updateAttackScore(infantryUnits, infTypes, 3, coefficient);
     }
 }
 
 // class Fortification
-void Fortification::updateAttackScore(vector<Unit*>& units, double disThreshold, double terrainModifier) {
+void Fortification::updateAttackScore(vector<Unit*>& units, double disThreshold, double coefficient) {
     for(int i = 0; i < (int)(units.size()); i++) {
         double distance = Position::calculateDistance(*(this->pos), units[i]->getCurrentPosition());
         if (distance <= disThreshold) {
-            units[i]->setTerrainModifier(terrainModifier);
+            int oldScore = units[i]->getComputedAttackScore();
+            double newScore = oldScore * coefficient;
+            units[i]->setComputedAttackScore(ceil(newScore));
         }
     }
 }
 
 void Fortification::getEffect(Army* army) {
+    if (!army) return;
     UnitList* ul = army->getUnitList();
     vector<Unit*> infantryUnits = ul->getUnitsByType(INFANTRY_UNIT);
     vector<Unit*> vehicleUnits = ul->getUnitsByType(VEHICLE_UNIT);
@@ -964,12 +971,13 @@ void SpecialZone::setAttackScoreZero(vector<Unit*>& units) {
     for (int i = 0; i < (int)(units.size()); i++) {
         double distance = Position::calculateDistance(*(this->pos), units[i]->getCurrentPosition());
         if (distance <= 1) {
-            units[i]->setTerrainModifier(0);
+            units[i]->setComputedAttackScore(0);
         }
     }
 }
 
 void SpecialZone::getEffect(Army* army) {
+    if (!army) return;
     UnitList* ul = army->getUnitList();
     vector<Unit*> infantryUnits = ul->getUnitsByType(INFANTRY_UNIT);
     vector<Unit*> vehicleUnits = ul->getUnitsByType(VEHICLE_UNIT);
@@ -1003,6 +1011,7 @@ void BattleField::setTerrain(vector<Position *> posList, TerrainType type) {
         }
     }
 }
+
 BattleField::BattleField(int n_rows, int n_cols,
                 vector<Position *> arrayForest,
                 vector<Position *> arrayRiver, vector<Position *> arrayFortification,
@@ -1037,6 +1046,19 @@ BattleField::~BattleField() {
         }
     }
     delete[] terrain;
+}
+
+TerrainElement* BattleField::getTerrainElement(int i, int j) {
+    if (i < 0 || i >= this->n_rows || j < 0 || j >= this->n_cols) return nullptr;
+    return this->terrain[i][j];
+}
+
+int BattleField::getNRows() const {
+    return this->n_rows;
+}
+
+int BattleField::getNCols() const {
+    return this->n_cols;
 }
 
 string BattleField::str() {
@@ -1337,7 +1359,18 @@ HCMCampaign::HCMCampaign(const string &config_file_path) {
 }
 
 void HCMCampaign::run() {
+    if (this->battleField) {
+        int r = this->battleField->getNRows();
+        int c = this->battleField->getNCols();
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                this->battleField->getTerrainElement(i, j)->getEffect(this->liberationArmy);
+                this->battleField->getTerrainElement(i, j)->getEffect(this->arvn);
+            }
+        }
+    }
     int eventCode = this->config->getEventCode();
+    // cout << "Before fight" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
     if (eventCode < 75) {
         this->arvn->fight(this->liberationArmy, true);
     }

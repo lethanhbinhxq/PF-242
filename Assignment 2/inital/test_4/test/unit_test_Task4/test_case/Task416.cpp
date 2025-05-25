@@ -11,7 +11,7 @@ bool UNIT_TEST_Task4::Task416() {
     ofs << "ARRAY_RIVER=[(1,10),(2,10),(3,10),(4,10),(10,1),(10,2)]\n";
     ofs << "ARRAY_FORTIFICATION=[(10,10),(11,10),(10,11)]\n";
     ofs << "ARRAY_URBAN=[(7,7),(7,8),(8,7),(8,8)]\n";
-    ofs << "ARRAY_SPECIAL_ZONE=[(20,20)]\n";
+    ofs << "ARRAY_SPECIAL_ZONE=[(19,19)]\n";
     ofs << "EVENT_CODE=65\n";
     ofs << "UNIT_LIST=[";
     // many units
