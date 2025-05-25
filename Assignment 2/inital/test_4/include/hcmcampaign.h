@@ -1,3 +1,11 @@
+/*
+ * Ho Chi Minh City University of Technology
+ * Faculty of Computer Science and Engineering
+ * Initial code for Assignment 2
+ * Programming Fundamentals Spring 2025
+ * Date: 02.02.2025
+ */
+
 // The library here is concretely set, students are not allowed to include any other libraries.
 #ifndef _H_HCM_CAMPAIGN_H_
 #define _H_HCM_CAMPAIGN_H_
@@ -11,30 +19,30 @@
 ////////////////////////////////////////////////////////////////////////
 
 // Forward declaration
-class Unit;
-class UnitList;
-class Army;
-class TerrainElement;
+class Unit; // done
+class UnitList; // done
+class Army; // done
+class TerrainElement; // done
 
-class Vehicle;
-class Infantry;
+class Vehicle; // done
+class Infantry; // done
 
-class LiberationArmy;
-class ARVN;
+class LiberationArmy; // done
+class ARVN; // done
 
-class Position;
+class Position; // done
 
-class Road;
-class Mountain;
-class River;
-class Urban;
+class Road; // done
+class Mountain; // done
+class River; // done
+class Urban; // done
 class Fortification;
-class SpecialZone;
+class SpecialZone; // done
 
-class BattleField;
+class BattleField; // done
 
 class HCMCampaign;
-class Configuration;
+class Configuration; // done
 
 enum VehicleType
 {
@@ -56,9 +64,73 @@ enum InfantryType
     REGULARINFANTRY
 };
 
-//!-----------------------------------------------------
-//! CLASS Position
-//!-----------------------------------------------------
+enum UnitType {
+    INFANTRY_UNIT,
+    VEHICLE_UNIT
+};
+
+enum UpdateUnitFlag {
+    DECREASE_10_PERCENT_WEIGHT,
+    DECREASE_20_PERCENT_WEIGHT,
+    DECREASE_10_PERCENT_QUANTITY,
+    INCREASE_TO_FIBONACCI_QUANTITY,
+    DECREASE_20_PERCENT_QUANTITY
+};
+
+enum TerrainType {
+    ROAD,
+    MOUNTAIN,
+    RIVER,
+    URBAN,
+    FORTIFICATION,
+    SPECIALZONE
+};
+
+class Army
+{
+protected:
+    int LF, EXP;
+    string name;
+    UnitList *unitList;
+    BattleField *battleField;
+    bool battleFlag;
+
+    void normalizeArmyData();
+    bool checkSpecialNumber(int S, int base);
+
+public:
+    Army();
+    Army(Unit **unitArray, int size, string name, BattleField *battleField);
+    virtual void fight(Army *enemy, bool defense = false) = 0;
+    virtual string str() const = 0;
+    int getLF();
+    int getEXP();
+    UnitList* getUnitList() const;
+    void setLF(int LF);
+    void setEXP(int EXP);
+    void updateScores();
+    void removeUnit(vector<Unit*> infantryList = {}, vector<Unit*> vehicleList = {});
+    void confiscate(Army* winner, Army* loser);
+    bool getBattleFlag();
+};
+
+class LiberationArmy : public Army {
+public:
+    LiberationArmy(Unit **unitArray, int size, string name, BattleField *battleField);
+    void fight(Army* enemy, bool defense = false);
+    bool getBattleFlag();
+    string str() const;
+private:
+    vector<Unit*> findMinCombination(vector<Unit*>& units, int targetValue);
+};
+
+class ARVN : public Army {
+public:
+    ARVN(Unit **unitArray, int size, string name, BattleField *battleField);
+    void fight(Army* enemy, bool defense = false);
+    string str() const;
+};
+
 class Position
 {
 private:
@@ -66,210 +138,176 @@ private:
 
 public:
     Position(int r = 0, int c = 0);
-    Position(const string &str_pos);
+    Position(const string &str_pos); // Example: str_pos = "(1,15)"
     int getRow() const;
     int getCol() const;
     void setRow(int r);
     void setCol(int c);
-    string str() const;
+    string str() const; // Example: returns "(1,15)"
+    static double calculateDistance(Position a, Position b);
 };
 
-//!-----------------------------------------------------
-//! CLASS Unit
-//!-----------------------------------------------------
 class Unit
 {
 protected:
     int quantity, weight;
     Position pos;
-    // * You can add more attributes if needed
+    double terrainModifier;
+
 public:
+    Unit();
     Unit(int quantity, int weight, Position pos);
     virtual ~Unit();
     virtual int getAttackScore() = 0;
+    Position getCurrentPosition() const;
     virtual string str() const = 0;
-    // * You can add more methods if needed
+    int getQuantity() const;
+    void setQuantity(int quantity);
+    int getWeight() const;
+    void setWeight(int weight);
+    void setTerrainModifier(double terrainModifier);
+    virtual int getEnumType() const = 0;
 };
 
-//!-----------------------------------------------------
-//! CLASS Infantry : public Unit
-//!-----------------------------------------------------
-class Infantry : public Unit
-{
-private:
-    InfantryType infantryType;
-    // * You can add more attributes if needed
-public:
-    Infantry(int quantity, int weight, Position pos, InfantryType infantryType);
-    ~Infantry(){}
-    int getAttackScore() override;
-    string str() const override;
-
-    // * You can add more methods if needed
-};
-
-//!-----------------------------------------------------
-//! CLASS Vehicle : public Unit
-//!-----------------------------------------------------
-class Vehicle : public Unit
-{
+class Vehicle : public Unit {
 private:
     VehicleType vehicleType;
-    // * You can add more attributes if needed
+    string vehicleTypeString() const;
 public:
-    Vehicle(int quantity, int weight, Position pos, VehicleType vehicleType);
-    ~Vehicle() {}
-    int getAttackScore() override;
-    string str() const override;
-    // * You can add more methods if needed
+    Vehicle(int quantity, int weight, const Position pos, VehicleType vehicleType);
+    ~Vehicle();
+    int getAttackScore();
+    int getEnumType() const;
+    string str() const;
+    static VehicleType convertToVehicleType(string str);
 };
 
-//!-----------------------------------------------------
-//! CLASS UnitList
-//!-----------------------------------------------------
+class Infantry : public Unit {
+private:
+    InfantryType infantryType;
+    bool checkPerfectSquare(int weight);
+    int getPersonalNumber(int score, int year = 1975);
+    string infantryTypeString() const;
+public:
+    Infantry(int quantity, int weight, const Position pos, InfantryType infantryType);
+    ~Infantry();
+    int getAttackScore();
+    int getEnumType() const;
+    string str() const;
+    static InfantryType convertToInfantryType(string str);
+};
+
 class UnitList
 {
 private:
+    // TODO
+    class UnitNode {
+    public:
+        Unit* unit;
+        UnitNode* next;
+
+        UnitNode(Unit* unit, UnitNode* next = nullptr) {
+            this->unit = unit;
+            this->next = next;
+        }
+    };
+
     int capacity;
-    // * You can add more attributes if needed
+    int vehicleCount;
+    int infantryCount;
+    UnitNode* headUnit;
+    UnitNode* tailUnit;
+
+    void insertFront(UnitNode* newNode);
+    void insertRear(UnitNode* newNode);
+
+    int nextNearestFibonacci(int n);
 public:
     UnitList(int capacity);
-    bool insert(Unit *unit);
-    bool isContain(VehicleType vehicleType);
-    bool isContain(InfantryType infantryType);
-    // * You can add more methods if needed
-};
-
-//!-----------------------------------------------------
-//! CLASS Army 
-//!-----------------------------------------------------
-class Army {
-protected:
-    int LF;
-    int EXP;
-    string name;
-    BattleField* battleField;
-    // * You can add more attributes if needed
-    
-public:
-    UnitList *unitList;
-    Army(Unit **unitArray, int size, string name, BattleField *battleField);
-    virtual ~Army();
-    virtual void fight(Army *enemy, bool defense = false) = 0;
-    virtual string str() const = 0;
-
-    // * You can add more methods if needed
-};
-
-//!-----------------------------------------------------
-//! CLASS LiberationArmy
-//!-----------------------------------------------------
-class LiberationArmy : public Army
-{
-private:
-    // * You can add more attributes if needed
-public:
-    LiberationArmy(Unit **unitArray, int size, string name, BattleField *battleField);
-    ~LiberationArmy();
-    void fight(Army *enemy, bool defense) override;
-    string str() const override;
-    // * You can add more methods if needed
-};
-
-//!-----------------------------------------------------
-//! CLASS ARVN
-//!-----------------------------------------------------
-class ARVN : public Army
-{
-private:
-    // * You can add more attributes if needed
-public:
-    ARVN(Unit** unitArray, int size, string name, BattleField* battleField);
-    ~ARVN();
-    void fight(Army* enemy, bool defense=false) override;
+    ~UnitList();
+    bool insert(Unit *unit);                   // return true if insert successfully
+    bool isContain(VehicleType vehicleType);   // return true if it exists
+    bool isContain(InfantryType infantryType); // return true if it exists
     string str() const;
-
-    // * You can add more methods if needed
-
+    // TODO
+    void remove(Unit* unit);
+    vector<Unit*> getUnitsByType(UnitType type = INFANTRY_UNIT);
+    void updateUnitScore(UpdateUnitFlag flag = DECREASE_10_PERCENT_QUANTITY);
+    void addUnitList(UnitList list);
+    void clear();
+    bool isFull();
+    bool isEmpty();
+    Unit* pop_back_unit();
+    void removeWithQuantity(int quantity = 1);
+    void removeWithAttackScore(int attackScore = 5);
 };
 
-//!-----------------------------------------------------
-//! CLASS TerrainElement và các lớp dẫn xuất
-//!-----------------------------------------------------
-class TerrainElement {
+class TerrainElement
+{
 protected:
-    Position pos;
-    // * You can add more attributes if needed
+    Position* pos;
 public:
-    TerrainElement(Position);
-    virtual ~TerrainElement();
+    TerrainElement();
+    TerrainElement(Position p);
+    ~TerrainElement();
+    Position* getPosition();
+    void setPosition(Position* p);
     virtual void getEffect(Army *army) = 0;
-    // * You can add more attributes if needed
 };
 
 class Road : public TerrainElement {
 public:
-    Road(Position pos) : TerrainElement(pos) {}
     void getEffect(Army *army);
-    // * You can add more methods if needed
 };
 
 class Mountain : public TerrainElement {
+private:
+    void updateArmyScore(vector<Unit*>& units, double disThreshold, double ratio, double& score, bool increase = true);
 public:
-    Mountain(Position pos) : TerrainElement(pos) {}
-    void getEffect(Army *army);
-    // * You can add more methods if needed
+    void getEffect(Army* army);
 };
 
 class River : public TerrainElement {
 public:
-    River(Position pos) : TerrainElement(pos) {}
-    void getEffect(Army *army);
-    // * You can add more methods if needed
+    void getEffect(Army* army);
 };
 
 class Urban : public TerrainElement {
+private:
+    void updateAttackScore(vector<Unit*>& units, vector<int> types, double disThreshold, double coefficient, bool infantry = true);
 public:
-    Urban(Position pos) : TerrainElement(pos) {}
-    void getEffect(Army *army);
-    // * You can add more methods if needed
+    void getEffect(Army* army);
 };
 
 class Fortification : public TerrainElement {
+private:
+    void updateAttackScore(vector<Unit*>& units, double disThreshold, double terrainModifier);
 public:
-    Fortification(Position pos) : TerrainElement(pos) {}
-    void getEffect(Army *army);
-    // * You can add more methods if needed
+    void getEffect(Army* army);
 };
 
 class SpecialZone : public TerrainElement {
+private:
+    void setAttackScoreZero(vector<Unit*>& units);
 public:
-    SpecialZone(Position pos) : TerrainElement(pos) {}
-    void getEffect(Army *army);
-    // * You can add more methods if needed
+    void getEffect(Army* army);
 };
 
-//!-----------------------------------------------------
-//! CLASS BattleField
-//!-----------------------------------------------------
-class BattleField {
+class BattleField
+{
 private:
     int n_rows, n_cols;
-    TerrainElement ***terrain;
-    // * You can add more attributes if needed
+    // TODO
+    vector<TerrainElement*>* terrain;
+    void setTerrain(vector<Position *> posList = vector<Position*>(), TerrainType type = MOUNTAIN);
 public:
-    BattleField(int n_rows, int n_cols, const vector<Position*>& arrayForest,
-                const vector<Position*>& arrayRiver, const vector<Position*>& arrayFortification,
-                const vector<Position*>& arrayUrban, const vector<Position*>& arraySpecialZone);
+    BattleField(int n_rows, int n_cols, vector<Position *> arrayForest,
+                vector<Position *> arrayRiver, vector<Position *> arrayFortification,
+                vector<Position *> arrayUrban, vector<Position *> arraySpecialZone);
     ~BattleField();
-    TerrainElement* getElement(int r, int c) const;
-    string str() const;
-    // * You can add more methods if needed
+    string str();
 };
 
-//!-----------------------------------------------------
-//! CLASS Configuration
-//!-----------------------------------------------------
 class Configuration {
 private:
     int num_rows;
@@ -279,36 +317,46 @@ private:
     vector<Position*> arrayFortification;
     vector<Position*> arrayUrban;
     vector<Position*> arraySpecialZone;
-    vector<Unit*> liberationUnits;
-    vector<Unit*> ARVNUnits;
+    Unit** liberationUnits;
+    Unit** ARVNUnits;
+    int num_lib_unit;
+    int num_ar_unit;
     int eventCode;
-    // * You can modify or add more attributes if needed
+
+    void normalizeConfigData();
+    void readPositionArray(const string& str, vector<Position*>& array);
+    void readUnitList(const string& str);
+    void convertUnitType(InfantryType& iType, VehicleType& vType, bool& infantry, string unitName);
 public:
-    Configuration(const string & filepath);
+    Configuration(const string& filepath);
     ~Configuration();
+    int getNumRows() const;
+    int getNumCols() const;
+    vector<Position*> getArrayForest() const;
+    vector<Position*> getArrayRiver() const;
+    vector<Position*> getArrayFortification() const;
+    vector<Position*> getArrayUrban() const;
+    vector<Position*> getArraySpecialZone() const;
+    Unit** getLiberationUnits() const;
+    Unit** getARVNUnits() const;
+    int getNumLibUnit() const;
+    int getNumARUnit() const;
+    int getEventCode() const;
     string str() const;
-    
-    // * Getter methods */
-    // * You can add more getter methods if needed
 };
 
-//!-----------------------------------------------------
-//! Lớp HCMCampaign
-//!-----------------------------------------------------
-class HCMCampaign {
+class HCMCampaign
+{
 private:
-    Configuration* config;
-    BattleField* battleField;
-    LiberationArmy* liberationArmy;
-    ARVN* arvnArmy;
-    // * You can modify or add more attributes if needed
+    Configuration *config;
+    BattleField *battleField;
+    LiberationArmy *liberationArmy;
+    ARVN *arvn;
+
 public:
-    HCMCampaign(const string & config_file_path);
-    ~HCMCampaign();
+    HCMCampaign(const string &config_file_path);
     void run();
-    // Phương thức printResult: trả về chuỗi kết quả theo định dạng:
-    // "LIBERATIONARMY[LF=<LF>,EXP=<EXP>]-ARVN[LF=<LF>,EXP=<EXP>]"
     string printResult();
-    // * You can add more methods if needed
 };
+
 #endif

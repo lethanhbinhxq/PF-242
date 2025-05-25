@@ -22,6 +22,7 @@ bool UNIT_TEST_Task4::Task406() {
         campaign = new HCMCampaign(cfg);
         result = "** Before the fight\n";
         result += campaign->printResult();
+        // cout << "Before: " << campaign->printResult() << endl;
         result += "\n** After the fight\n";
         campaign->run();
         result += campaign->printResult();

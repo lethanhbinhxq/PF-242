@@ -4,25 +4,62 @@
 #include "Infantry.h"
 #include "Vehicle.h"
 
+enum UnitType {
+    INFANTRY_UNIT,
+    VEHICLE_UNIT
+};
+
+enum UpdateUnitFlag {
+    DECREASE_10_PERCENT_WEIGHT,
+    DECREASE_20_PERCENT_WEIGHT,
+    DECREASE_10_PERCENT_QUANTITY,
+    INCREASE_TO_FIBONACCI_QUANTITY,
+    DECREASE_20_PERCENT_QUANTITY
+};
+
 class UnitList
 {
 private:
-    // Your implement
+    // TODO
+    class UnitNode {
+    public:
+        Unit* unit;
+        UnitNode* next;
 
+        UnitNode(Unit* unit, UnitNode* next = nullptr) {
+            this->unit = unit;
+            this->next = next;
+        }
+    };
+
+    int capacity;
+    int vehicleCount;
+    int infantryCount;
+    UnitNode* headUnit;
+    UnitNode* tailUnit;
+
+    void insertFront(UnitNode* newNode);
+    void insertRear(UnitNode* newNode);
+
+    int nextNearestFibonacci(int n);
+    bool checkSpecialNumber(int S, int base);
 public:
-    UnitList(int capacity);
-    bool insert(Unit *unit);
-    bool isContain(VehicleType vehicleType);
-    bool isContain(InfantryType infantryType);
-    //vector<Unit *> getUnits() const;
+    UnitList(int S);
+    bool insert(Unit *unit);                   // return true if insert successfully
+    bool isContain(VehicleType vehicleType);   // return true if it exists
+    bool isContain(InfantryType infantryType); // return true if it exists
     string str() const;
-    void reduceQuantity(int percent);
-    void reduceWeight(int percent);
-    void clear() {}
-    void setUnits(vector<Unit *> units);
-    void remove(Unit *unit);
-    vector<Unit *>& getUnits();
-    void removeUnits(vector<Unit*>& unitsToRemove);
+    // TODO
+    void remove(Unit* unit);
+    vector<Unit*> getUnitsByType(UnitType type = INFANTRY_UNIT);
+    void updateUnitScore(UpdateUnitFlag flag = DECREASE_10_PERCENT_QUANTITY);
+    void addUnitList(UnitList list);
+    void clear();
+    bool isFull();
+    bool isEmpty();
+    Unit* pop_back_unit();
+    void removeWithQuantity(int quantity = 1);
+    int getCapacity();
 };
 
 #endif

@@ -16,6 +16,7 @@ public:
     void setRow(int r);
     void setCol(int c);
     string str() const;
+    static double calculateDistance(Position a, Position b);
 };
 
 #endif // POSITION_H

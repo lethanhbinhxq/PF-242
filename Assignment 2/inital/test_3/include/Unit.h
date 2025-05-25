@@ -8,21 +8,23 @@ class Unit
 protected:
     int quantity, weight;
     Position pos;
-    int attackScore;
-
+    double terrainModifier;
+    int attackScoreImmutable;
 public:
+    Unit();
     Unit(int quantity, int weight, Position pos);
-    virtual ~Unit() = default;
+    virtual ~Unit();
     virtual int getAttackScore() = 0;
-    int getAttackScoreinFight();
-    void setAttackScore(int score);
+    int getAttackScoreImmutable();
+    void setAttackScoreImmutable(int score);
     Position getCurrentPosition() const;
     virtual string str() const = 0;
-
-    int getQuantity() { return quantity; }
-    int getWeight() { return weight; }
+    int getQuantity() const;
     void setQuantity(int quantity);
+    int getWeight() const;
     void setWeight(int weight);
+    void setTerrainModifier(double terrainModifier);
+    virtual int getEnumType() const = 0;
 };
 
 #endif // UNIT_H
