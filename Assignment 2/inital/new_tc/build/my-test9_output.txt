@@ -1,0 +1,100 @@
+----- Triet's test 9 -----
+Check special number: 540 3
+Check special number: 540 5
+Check special number: 540 7
+Check special number: 485 3
+Check special number: 485 5
+Check special number: 485 7
+** Before the fight
+LIBERATIONARMY[LF=105,EXP=435]-ARVN[LF=52,EXP=433]
+** After the fight
+LiberationArmy unit scores:
+- Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)]: 307
+- Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)]: 128
+- Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)]: 63
+- Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)]: 42
+ARVN unit scores:
+- Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)]: 244
+- Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)]: 6
+- Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)]: 183
+- Vehicle[vehicleType=ARTILLERY,quantity=2,weight=8,position=(8,2)]: 52
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+River effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+River effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+River effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+River effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Urban effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+Urban effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Urban effect: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] - old score = 63
+Urban effect: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] - old score = 42
+Urban effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+Urban effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Urban effect: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] - old score = 63
+Urban effect: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] - old score = 42
+Forti effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+Forti effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Forti effect: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] - old score = 63
+Forti effect: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] - old score = 42
+Forti effect: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+Forti effect: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Forti effect: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] - old score = 63
+Forti effect: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] - old score = 42
+Special zone: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+Special zone: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Special zone: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] - old score = 63
+Special zone: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] - old score = 42
+Special zone: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+Special zone: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Special zone: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] - old score = 63
+Special zone: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] - old score = 42
+Special zone: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] - old score = 307
+Special zone: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] - old score = 128
+Special zone: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] - old score = 63
+Special zone: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] - old score = 42
+River effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 244
+River effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+River effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+River effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 244
+River effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+River effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+River effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 244; new score = 219
+River effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+River effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+River effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+River effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+River effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Urban effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+Urban effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+Urban effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Urban effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+Urban effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+Urban effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Forti effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+Forti effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+Forti effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Forti effect: Vehicle[vehicleType=ARTILLERY,quantity=2,weight=8,position=(8,2)] - old score = 52
+Forti effect: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+Forti effect: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+Forti effect: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Forti effect: Vehicle[vehicleType=ARTILLERY,quantity=2,weight=8,position=(8,2)] - old score = 52
+Special zone: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+Special zone: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+Special zone: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Special zone: Vehicle[vehicleType=ARTILLERY,quantity=2,weight=8,position=(8,2)] - old score = 52
+Special zone: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+Special zone: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+Special zone: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Special zone: Vehicle[vehicleType=ARTILLERY,quantity=2,weight=8,position=(8,2)] - old score = 52
+Special zone: Infantry[infantryType=SPECIALFORCES,quantity=4,weight=5,position=(4,6)] - old score = 219
+Special zone: Infantry[infantryType=SNIPER,quantity=3,weight=2,position=(2,6)] - old score = 6
+Special zone: Infantry[infantryType=ENGINEER,quantity=5,weight=3,position=(9,5)] - old score = 183
+Special zone: Vehicle[vehicleType=ARTILLERY,quantity=2,weight=8,position=(8,2)] - old score = 52
+Computed attackscore: Infantry[infantryType=REGULARINFANTRY,quantity=9,weight=3,position=(7,4)] 307
+Computed attackscore: Infantry[infantryType=MORTARSQUAD,quantity=4,weight=4,position=(6,1)] 128
+Computed attackscore: Vehicle[vehicleType=TANK,quantity=6,weight=7,position=(3,3)] 63
+Computed attackscore: Vehicle[vehicleType=APC,quantity=4,weight=5,position=(1,7)] 42
+Found veh combo
+LIBERATIONARMY[LF=94,EXP=433]-ARVN[LF=0,EXP=0]

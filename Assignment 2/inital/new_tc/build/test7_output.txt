@@ -1,2 +1,4 @@
 ----- Sample Testcase 06 -----
+Check special number: 0 3
+0 is special number of base 3
 LiberationArmy[LF=0,EXP=0,unitList=UnitList[count_vehicle=0;count_infantry=0],battleField=]

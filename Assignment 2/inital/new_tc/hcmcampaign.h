@@ -198,11 +198,7 @@ public:
     static InfantryType convertToInfantryType(string str);
 };
 
-class UnitList
-{
-private:
-    // TODO
-    class UnitNode {
+class UnitNode {
     public:
         Unit* unit;
         UnitNode* next;
@@ -212,6 +208,21 @@ private:
             this->next = next;
         }
     };
+
+class UnitList
+{
+private:
+    // TODO
+    // class UnitNode {
+    // public:
+    //     Unit* unit;
+    //     UnitNode* next;
+
+    //     UnitNode(Unit* unit, UnitNode* next = nullptr) {
+    //         this->unit = unit;
+    //         this->next = next;
+    //     }
+    // };
 
     int capacity;
     int vehicleCount;
@@ -241,6 +252,7 @@ public:
     Unit* pop_back_unit();
     void removeWithQuantity(int quantity = 1);
     void removeWithAttackScore(int attackScore = 5, bool computed = false);
+    UnitNode* getHead() {return headUnit;}
 };
 
 class TerrainElement

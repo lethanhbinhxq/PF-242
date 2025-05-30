@@ -1,5 +1,33 @@
 ----- Sample Testcase 03 -----
+Check special number: 352 3
+352 is special number of base 3
+Check special number: 352 3
+352 is special number of base 3
 ** Before the fight
 LIBERATIONARMY[LF=62,EXP=290]-ARVN[LF=62,EXP=290]
 ** After the fight
+LiberationArmy unit scores:
+- Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)]: 290
+- Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(1,2)]: 62
+ARVN unit scores:
+- Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)]: 290
+- Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(3,2)]: 62
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 290; new score = 261
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 261
+Urban effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 261
+Urban effect: Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(1,2)] - old score = 62
+Forti effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 261
+Forti effect: Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(1,2)] - old score = 62
+Special zone: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 261
+Special zone: Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(1,2)] - old score = 62
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
+River effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
+Urban effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
+Forti effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
+Forti effect: Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(3,2)] - old score = 62
+Special zone: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
+Special zone: Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(3,2)] - old score = 62
+Computed attackscore: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] 261
+Computed attackscore: Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(1,2)] 62
+Found veh combo
 LIBERATIONARMY[LF=62,EXP=290]-ARVN[LF=0,EXP=0]

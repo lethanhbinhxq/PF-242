@@ -1440,48 +1440,38 @@ HCMCampaign::HCMCampaign(const string &config_file_path) {
 }
 
 void HCMCampaign::run() {
-    // cout << "Before effect" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
+    cout << ": LBRA: " << this->liberationArmy->str() << endl;
+    cout << ": ARVN: " << this->arvn->str() << endl;
 
     if (this->battleField) {
         this->battleField->getTerrainEffect(this->liberationArmy);
         this->battleField->getTerrainEffect(this->arvn);
     }
-
-    // cout << "After effect" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
-    auto a = this->arvn->getUnitList()->getUnitsByType(INFANTRY_UNIT);
-    // for (int i = 0; i < a.size(); i++) {
-    //     cout << a[i]->getComputedAttackScore() << endl;
-    // }
+    cout << "RUN: LBRA: " << this->liberationArmy->str() << endl;
+    cout << "RUN: ARVN: " << this->arvn->str() << endl;
 
     int eventCode = this->config->getEventCode();
     if (eventCode < 75) {
-        // cout << "Before fight" << endl;
-    // for (int i = 0; i < a.size(); i++) {
-    //     cout << a[i]->getComputedAttackScore() << endl;
-    // }
         this->arvn->fight(this->liberationArmy, true);
-    //     cout << "After fight" << endl;
-    //     for (int i = 0; i < a.size(); i++) {
-    //     cout << a[i]->getComputedAttackScore() << endl;
-    // }
+        cout << "PRINT: LBRA: " << this->liberationArmy->str() << endl;
+        cout << "PRINT: ARVN: " << this->arvn->str() << endl;
     }
     else {
         this->arvn->fight(this->liberationArmy, false);
+        cout << "PRINT: LBRA: " << this->liberationArmy->str() << endl;
+        cout << "PRINT: ARVN: " << this->arvn->str() << endl;
         this->liberationArmy->fight(this->arvn, false);
+        cout << "PRINT: LBRA: " << this->liberationArmy->str() << endl;
+        cout << "PRINT: ARVN: " << this->arvn->str() << endl;
     }
-    // cout << "Before remove" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
-
-    // cout << "After fight, before remove" << endl;
-    // for (int i = 0; i < a.size(); i++) {
-    //     cout << a[i]->getComputedAttackScore() << endl;
-    // }
-
     bool battleFlag = this->liberationArmy->getBattleFlag();
     this->liberationArmy->getUnitList()->removeWithAttackScore(5, !battleFlag);
     this->arvn->getUnitList()->removeWithAttackScore(5, !battleFlag);
     this->liberationArmy->updateScores();
     this->arvn->updateScores();
-    // cout << "After remove" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
+
+    cout << "REMOVED: LBRA: " << this->liberationArmy->str() << endl;
+    cout << "REMOVED: ARVN: " << this->arvn->str() << endl;
 }
 
 string HCMCampaign::printResult() {

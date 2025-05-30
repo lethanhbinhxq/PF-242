@@ -1,6 +1,16 @@
 ----- Sample Testcase 02 -----
+Check special number: 229 3
+Check special number: 229 5
+Check special number: 229 7
 LiberationArmy[LF=29,EXP=200,unitList=UnitList[count_vehicle=2;count_infantry=1;Infantry[infantryType=SNIPER,quantity=10,weight=20,position=(1,1)],Vehicle[vehicleType=MORTAR,quantity=20,weight=20,position=(1,2)],Vehicle[vehicleType=TRUCK,quantity=15,weight=10,position=(2,2)]],battleField=]
+Check special number: 195 3
+Check special number: 195 5
+Check special number: 195 7
 ARVN[LF=15,EXP=180,unitList=UnitList[count_vehicle=2;count_infantry=1;Infantry[infantryType=SNIPER,quantity=9,weight=20,position=(3,3)],Vehicle[vehicleType=MORTAR,quantity=5,weight=20,position=(3,2)],Vehicle[vehicleType=TRUCK,quantity=1,weight=10,position=(3,1)]],battleField=]
+Computed attackscore: Infantry[infantryType=SNIPER,quantity=10,weight=20,position=(1,1)] 200
+Computed attackscore: Vehicle[vehicleType=MORTAR,quantity=20,weight=20,position=(1,2)] 24
+Computed attackscore: Vehicle[vehicleType=TRUCK,quantity=15,weight=10,position=(2,2)] 5
+Found both inf and veh combo
 * After the fight
 LiberationArmy[LF=20,EXP=180,unitList=UnitList[count_vehicle=2;count_infantry=1;Infantry[infantryType=SNIPER,quantity=9,weight=20,position=(3,3)],Vehicle[vehicleType=TRUCK,quantity=16,weight=10,position=(2,2)],Vehicle[vehicleType=MORTAR,quantity=5,weight=20,position=(3,2)]],battleField=]
 ARVN[LF=0,EXP=0,unitList=UnitList[count_vehicle=0;count_infantry=0],battleField=]
