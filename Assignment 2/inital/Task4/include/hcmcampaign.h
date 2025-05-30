@@ -240,7 +240,7 @@ public:
     bool isEmpty();
     Unit* pop_back_unit();
     void removeWithQuantity(int quantity = 1);
-    void removeWithAttackScore(int attackScore = 5);
+    void removeWithAttackScore(int attackScore = 5, bool computed = false);
 };
 
 class TerrainElement

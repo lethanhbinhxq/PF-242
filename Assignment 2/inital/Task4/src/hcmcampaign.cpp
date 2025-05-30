@@ -504,11 +504,13 @@ void UnitList::removeWithQuantity(int quantity) {
     }
 }
 
-void UnitList::removeWithAttackScore(int attackScore) {
+void UnitList::removeWithAttackScore(int attackScore, bool computed) {
     UnitNode* cur = this->headUnit;
     while (cur) {
         UnitNode* temp = cur->next;
-        if (cur->unit->getAttackScore() <= attackScore) {
+        // cout << cur->unit->str() << endl << "Computed attack score = " << cur->unit->getComputedAttackScore() << endl;
+        int score = computed ? cur->unit->getComputedAttackScore() : cur->unit->getAttackScore();
+        if (score <= attackScore) {
             remove(cur->unit);
         }
         cur = temp;
@@ -677,7 +679,7 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
         // cout << "Lib before attack" << endl << str() << endl;
 
         // for (int i = 0; i < infantryUnits.size(); i++) {
-        //         cout << infantryUnits[i]->str() << endl;
+        //         cout << infantryUnits[i]->str() << endl << "Computed attackscore = " << infantryUnits[i]->getComputedAttackScore() << endl;
         //     }
         //     for (int i = 0; i < vehicleUnits.size(); i++) {
         //         cout << vehicleUnits[i]->str() << endl;
@@ -744,6 +746,10 @@ void LiberationArmy::fight(Army* enemy, bool defense) {
     // cout << "Before update score" << endl << str() << endl;
     updateScores();
     // cout << "After update score" << endl << str() << endl;
+    // auto a = enemy->getUnitList()->getUnitsByType(INFANTRY_UNIT);
+    // for (int i = 0; i < a.size(); i++) {
+    //     cout << "After lib fight: "<< a[i]->getComputedAttackScore() << endl;
+    // }
 }
 
 bool LiberationArmy::getBattleFlag() {
@@ -811,18 +817,25 @@ void ARVN::fight(Army* enemy, bool defense) {
         enemy->fight(this, true);
         this->unitList->updateUnitScore(DECREASE_20_PERCENT_QUANTITY);
         this->unitList->removeWithQuantity(1);
+        updateScores();
         // cout << "After remove quantity 1: " << endl << str() << endl;
     }
     else {
+    //     auto a = this->getUnitList()->getUnitsByType(INFANTRY_UNIT);
+    // for (int i = 0; i < a.size(); i++) {
+    //     cout << a[i]->getComputedAttackScore() << endl;
+    // }
         enemy->fight(this, false);
         bool battleFlag = enemy->getBattleFlag();
         // cout << "battleFlag: " << battleFlag << endl;
         if (battleFlag) {
             this->unitList->updateUnitScore(DECREASE_20_PERCENT_WEIGHT);
+            updateScores();
         }
+    //     for (int i = 0; i < a.size(); i++) {
+    //     cout << a[i]->getComputedAttackScore() << endl;
+    // }
     }
-
-    updateScores();
 }
 
 string ARVN::str() const {
@@ -1435,17 +1448,37 @@ void HCMCampaign::run() {
     }
 
     // cout << "After effect" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
+    auto a = this->arvn->getUnitList()->getUnitsByType(INFANTRY_UNIT);
+    // for (int i = 0; i < a.size(); i++) {
+    //     cout << a[i]->getComputedAttackScore() << endl;
+    // }
+
     int eventCode = this->config->getEventCode();
     if (eventCode < 75) {
+        // cout << "Before fight" << endl;
+    // for (int i = 0; i < a.size(); i++) {
+    //     cout << a[i]->getComputedAttackScore() << endl;
+    // }
         this->arvn->fight(this->liberationArmy, true);
+    //     cout << "After fight" << endl;
+    //     for (int i = 0; i < a.size(); i++) {
+    //     cout << a[i]->getComputedAttackScore() << endl;
+    // }
     }
     else {
         this->arvn->fight(this->liberationArmy, false);
         this->liberationArmy->fight(this->arvn, false);
     }
     // cout << "Before remove" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
-    this->liberationArmy->getUnitList()->removeWithAttackScore(5);
-    this->arvn->getUnitList()->removeWithAttackScore(5);
+
+    // cout << "After fight, before remove" << endl;
+    // for (int i = 0; i < a.size(); i++) {
+    //     cout << a[i]->getComputedAttackScore() << endl;
+    // }
+
+    bool battleFlag = this->liberationArmy->getBattleFlag();
+    this->liberationArmy->getUnitList()->removeWithAttackScore(5, !battleFlag);
+    this->arvn->getUnitList()->removeWithAttackScore(5, !battleFlag);
     this->liberationArmy->updateScores();
     this->arvn->updateScores();
     // cout << "After remove" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
