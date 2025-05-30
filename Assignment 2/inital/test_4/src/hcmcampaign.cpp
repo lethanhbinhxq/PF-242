@@ -660,7 +660,7 @@ void Army::confiscate(Army* winner, Army* loser) {
 }
 
 // class LiberationArmy
-LiberationArmy::LiberationArmy(Unit **unitArray, int size, string name, BattleField *battleField) : Army(unitArray, size, name, battleField) { cout << "Init: " << str() << endl; }
+LiberationArmy::LiberationArmy(Unit **unitArray, int size, string name, BattleField *battleField) : Army(unitArray, size, name, battleField) { /*cout << "Init: " << str() << endl;*/ }
 
 void LiberationArmy::fight(Army* enemy, bool defense) {
     if (!defense) {
@@ -789,7 +789,7 @@ vector<Unit*> LiberationArmy::findMinCombination(vector<Unit*>& units, int targe
 }
 
 // class ARVN
-ARVN::ARVN(Unit **unitArray, int size, string name, BattleField *battleField) : Army(unitArray, size, name, battleField) { cout << "Init: " << str() << endl; }
+ARVN::ARVN(Unit **unitArray, int size, string name, BattleField *battleField) : Army(unitArray, size, name, battleField) { /*cout << "Init: " << str() << endl;*/ }
 
 void ARVN::fight(Army* enemy, bool defense) {
     if (!defense) {
@@ -1360,16 +1360,18 @@ HCMCampaign::HCMCampaign(const string &config_file_path) {
 }
 
 void HCMCampaign::run() {
-    // if (this->battleField) {
-    //     int r = this->battleField->getNRows();
-    //     int c = this->battleField->getNCols();
-    //     for (int i = 0; i < r; i++) {
-    //         for (int j = 0; j < c; j++) {
-    //             this->battleField->getTerrainElement(i, j)->getEffect(this->liberationArmy);
-    //             this->battleField->getTerrainElement(i, j)->getEffect(this->arvn);
-    //         }
-    //     }
-    // }
+    cout << "Before effect" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
+    if (this->battleField) {
+        int r = this->battleField->getNRows();
+        int c = this->battleField->getNCols();
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                this->battleField->getTerrainElement(i, j)->getEffect(this->liberationArmy);
+                this->battleField->getTerrainElement(i, j)->getEffect(this->arvn);
+            }
+        }
+    }
+    cout << "After effect" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
     int eventCode = this->config->getEventCode();
     if (eventCode < 75) {
         this->arvn->fight(this->liberationArmy, true);
@@ -1383,7 +1385,7 @@ void HCMCampaign::run() {
     this->arvn->getUnitList()->removeWithAttackScore(5);
     this->liberationArmy->updateScores();
     this->arvn->updateScores();
-    cout << "After remove" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
+    // cout << "After remove" << endl << this->liberationArmy->str() << endl << this->arvn->str() << endl;
 }
 
 string HCMCampaign::printResult() {
