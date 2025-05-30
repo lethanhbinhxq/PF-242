@@ -1,33 +1,5 @@
 ----- Triet's test 1 -----
-Check special number: 321 3
-Check special number: 321 5
-Check special number: 321 7
-Check special number: 352 3
-352 is special number of base 3
 ** Before the fight
 LIBERATIONARMY[LF=21,EXP=300]-ARVN[LF=62,EXP=290]
 ** After the fight
-LiberationArmy unit scores:
-- Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)]: 290
-- Infantry[infantryType=SNIPER,quantity=5,weight=2,position=(1,2)]: 10
-- Vehicle[vehicleType=ANTIAIRCRAFT,quantity=1,weight=10,position=(6,6)]: 21
-ARVN unit scores:
-- Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)]: 290
-- Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(3,2)]: 62
-River effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 290; new score = 261
-River effect: Infantry[infantryType=SNIPER,quantity=5,weight=2,position=(1,2)] - old score = 10
-Urban effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 261
-Urban effect: Infantry[infantryType=SNIPER,quantity=5,weight=2,position=(1,2)] - old score = 10
-Urban effect: Vehicle[vehicleType=ANTIAIRCRAFT,quantity=1,weight=10,position=(6,6)] - old score = 21
-Forti effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] - old score = 261
-Forti effect: Infantry[infantryType=SNIPER,quantity=5,weight=2,position=(1,2)] - old score = 10
-Forti effect: Vehicle[vehicleType=ANTIAIRCRAFT,quantity=1,weight=10,position=(6,6)] - old score = 21; new score = 17
-River effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
-Urban effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
-Forti effect: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(3,3)] - old score = 290
-Forti effect: Vehicle[vehicleType=TANK,quantity=5,weight=2,position=(3,2)] - old score = 62
-Computed attackscore: Infantry[infantryType=REGULARINFANTRY,quantity=5,weight=2,position=(1,1)] 290
-Computed attackscore: Infantry[infantryType=SNIPER,quantity=5,weight=2,position=(1,2)] 10
-Computed attackscore: Vehicle[vehicleType=ANTIAIRCRAFT,quantity=1,weight=10,position=(6,6)] 21
-No battle
 LIBERATIONARMY[LF=21,EXP=300]-ARVN[LF=62,EXP=288]

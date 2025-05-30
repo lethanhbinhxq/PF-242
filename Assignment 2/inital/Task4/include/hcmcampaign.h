@@ -64,28 +64,6 @@ enum InfantryType
     REGULARINFANTRY
 };
 
-enum UnitType {
-    INFANTRY_UNIT,
-    VEHICLE_UNIT
-};
-
-enum UpdateUnitFlag {
-    DECREASE_10_PERCENT_WEIGHT,
-    DECREASE_20_PERCENT_WEIGHT,
-    DECREASE_10_PERCENT_QUANTITY,
-    INCREASE_TO_FIBONACCI_QUANTITY,
-    DECREASE_20_PERCENT_QUANTITY
-};
-
-enum TerrainType {
-    ROAD,
-    MOUNTAIN,
-    RIVER,
-    URBAN,
-    FORTIFICATION,
-    SPECIALZONE
-};
-
 class Army
 {
 protected:
@@ -155,6 +133,9 @@ protected:
     int computedAttackScore;
 
 public:
+    static const int INFANTRY_UNIT = 0;
+    static const int VEHICLE_UNIT = 1;
+
     Unit();
     Unit(int quantity, int weight, Position pos);
     virtual ~Unit();
@@ -224,6 +205,12 @@ private:
 
     int nextNearestFibonacci(int n);
 public:
+    static const int DECREASE_10_PERCENT_WEIGHT = 0;
+    static const int DECREASE_20_PERCENT_WEIGHT = 1;
+    static const int DECREASE_10_PERCENT_QUANTITY = 2;
+    static const int INCREASE_TO_FIBONACCI_QUANTITY = 3;
+    static const int DECREASE_20_PERCENT_QUANTITY = 4;
+
     UnitList(int capacity);
     ~UnitList();
     bool insert(Unit *unit);                   // return true if insert successfully
@@ -232,8 +219,8 @@ public:
     string str() const;
     // TODO
     void remove(Unit* unit);
-    vector<Unit*> getUnitsByType(UnitType type = INFANTRY_UNIT);
-    void updateUnitScore(UpdateUnitFlag flag = DECREASE_10_PERCENT_QUANTITY);
+    vector<Unit*> getUnitsByType(int type = Unit::INFANTRY_UNIT);
+    void updateUnitScore(int flag = DECREASE_10_PERCENT_QUANTITY);
     void addUnitList(UnitList list);
     void clear();
     bool isFull();
@@ -248,6 +235,13 @@ class TerrainElement
 protected:
     Position* pos;
 public:
+    static const int ROAD = 0;
+    static const int MOUNTAIN = 1;
+    static const int RIVER = 2;
+    static const int URBAN = 3;
+    static const int FORTIFICATION = 4;
+    static const int SPECIALZONE = 5;
+
     TerrainElement();
     ~TerrainElement();
     Position* getPosition();
@@ -299,7 +293,7 @@ private:
     int n_rows, n_cols;
     // TODO
     vector<TerrainElement*>* terrain;
-    void setTerrain(vector<Position *> posList = vector<Position*>(), TerrainType type = MOUNTAIN);
+    void setTerrain(vector<Position *> posList = vector<Position*>(), int type = TerrainElement::MOUNTAIN);
 public:
     BattleField(int n_rows, int n_cols, vector<Position *> arrayForest,
                 vector<Position *> arrayRiver, vector<Position *> arrayFortification,
