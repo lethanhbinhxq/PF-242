@@ -19,7 +19,7 @@ bool UNIT_TEST_Task4::Task410() {
     ofs << "UNIT_LIST=[";
     for (int i = 0; i < 15; ++i) {
         ofs << "TANK(1,1,(" << (i%10+1) << "," << (i%10+1) << "),0)";
-        if (i < 14) ofs << ",";
+        ofs << ",";
     }
     for (int i = 0; i < 15; ++i) {
         ofs << "TRUCK(3,3,(" << (i%10+1) << "," << (i%10+1) << "),1)";
