@@ -1,3 +1,0 @@
-UnitList::insert()---------------------------
-vehicleType: ARTILLERY
-Thêm Vehicle vào cuối danh sách.

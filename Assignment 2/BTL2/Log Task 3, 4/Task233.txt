@@ -1,3 +1,0 @@
-UnitList::insert()---------------------------
-vehicleType: TANK
-Thêm Vehicle vào cuối danh sách.

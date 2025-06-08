@@ -1,3 +1,0 @@
-UnitList::insert()---------------------------
-vehicleType: APC
-Thêm Vehicle vào cuối danh sách.
